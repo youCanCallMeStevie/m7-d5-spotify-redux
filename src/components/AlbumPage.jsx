@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleLeft, faChevronCircleRight, faEllipsisH, faHeart, faPauseCircle, faUser } from '@fortawesome/free-solid-svg-icons'
 import "./CSS/AlbumPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Image, Col, Spinner } from "react-bootstrap";
 
 export class AlbumPage extends Component {
     render() {
@@ -34,10 +32,10 @@ export class AlbumPage extends Component {
                             </span>
                             User
                           </button>
-                          <div className="dropdown-menu" style='background: black; color: white;' aria-labelledby="dropdownMenuButton" >
-                            <a className="dropdown-item" style='background: black; color: white;' href="#">Acount</a>
-                            <a className="dropdown-item" style='background: black; color: white;' href="#">Profile</a>
-                            <a href= "login.html"className="dropdown-item" style='background: black; color: white;' href="#">Log-out</a>
+                          <div className="dropdown-menu" style={{background: "black", color: "white"}} aria-labelledby="dropdownMenuButton" >
+                            <a className="dropdown-item" style={{background: "black", color: "white"}} href="#">Acount</a>
+                            <a className="dropdown-item" style={{background: "black", color: "white"}} href="#">Profile</a>
+                            <a href= "login.html"className="dropdown-item" style={{background:"black", color: "white"}} href="#">Log-out</a>
                           </div>
                         </div>
     

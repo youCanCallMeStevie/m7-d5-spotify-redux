@@ -15,8 +15,8 @@ function App() {
         path="/album"
         exact render={props => <AlbumPage {...props} />}
       />
-      <Route path={["/artist", "/artist/:id", "/home"]}  component={SideNavBar} />
-      <Route path={["/artist", "/artist/:id", "/home"]}  component={BottomPlayer} />
+      <Route path={["/artist", "/artist/:id", "/home", "/album"]}  component={SideNavBar} />
+      <Route path={["/artist", "/artist/:id", "/home", "/album"]}  component={BottomPlayer} />
       <Route
         path="/home"
         exact render={props => <Home {...props} />}
