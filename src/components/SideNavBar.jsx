@@ -1,9 +1,11 @@
 import Logo from "../assets/logo.png";
 import React, { Component } from "react";
-import { Links } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { InputGroup, FormControl, Button, Image} from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faHome, faBook, faHeart, faPlusCircle, faArrowCircleDown } from '@fortawesome/free-solid-svg-icons'
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import "./CSS/SideNavBar.css";
 
 
@@ -13,7 +15,7 @@ export class SideNavBar extends Component {
       <>
         <div className="aside">
           <div>
-            <Image src ={Logo} alt="logo" className="logo" />
+          <Link to="/home"><Image src ={Logo} alt="logo" className="logo" /></Link>
           </div>
 
           <div className="menu d-flex column justify-content-start align-items-center">
@@ -74,9 +76,9 @@ export class SideNavBar extends Component {
               </a>
             </div>
             <div className="login-button-index">
-              <a href="login.html">
+            <Link to="/login">
                 <span>LOGIN</span>
-              </a>
+              </Link>
             </div>
             <div className="install-btn">
               <a href="#">
@@ -90,4 +92,4 @@ export class SideNavBar extends Component {
   }
 }
 
-export default SideNavBar;
+export default withRouter(SideNavBar);

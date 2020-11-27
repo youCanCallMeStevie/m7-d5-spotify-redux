@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Links } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faPlay, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,7 @@ export class AlbumCard extends Component {
     render() {
         return (
         //   <div className="row no-gutters d-flex">
-            <div className="myCard card p-0 trending card p-0 col-12 col-md-3 col-lg-2 " id="sampleCard">
+            <div className="myCard card p-0 trending p-0 col-12 col-md-3 col-lg-2 " id="sampleCard">
               <Image
                 src={this.props.img}
                 className="card-img-top"
@@ -27,7 +27,7 @@ export class AlbumCard extends Component {
               </span>
               <div>
                 <h6>{this.props.albumTitle}</h6>
-                <h6>{this.props.artist}</h6>
+                <h6><Link to="/artist">{this.props.artist}</Link></h6>
               </div>
             </div>
 

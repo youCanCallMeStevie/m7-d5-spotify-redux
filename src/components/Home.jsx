@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Links } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AlbumLists from "./AlbumLists";
