@@ -10,7 +10,7 @@ import "./CSS/Login.css";
 export class Login extends Component {
     render() {
         return (
-            <section className="container-fluid position-relative">
+            <section className="container-fluid position-relative" style={{backgroundColor: "white"}}>
             <div className="login-logo">
               <a href="index.html"><img src={Logo} /></a>
             </div>

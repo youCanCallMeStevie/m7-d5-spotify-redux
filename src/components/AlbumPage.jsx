@@ -9,11 +9,12 @@ import { Image, Col, Spinner } from "react-bootstrap";
 export class AlbumPage extends Component {
     render() {
         return (
+            <>
             <div className='row'>
 
-            <div className='albums-holder col-9' style='padding: 0px !important;'>
+            <div className='albums-holder col-9' style={{padding: "0px"}}>
            
-                <section style='overflow-y: auto;' id='albums-section'>
+                <section style={{overflowY: "auto"}} id='albums-section'>
     
                   
                     <div className='album-header' id='header'>
@@ -24,7 +25,7 @@ export class AlbumPage extends Component {
     
                       <div className='header-btns'>
     
-                        <a href='#'><button className='upgrade-btn' value='upgrade' style={{verticalAlign: "middle"}}>>UPGRADE</button></a>
+                        <a href='#'><button className='upgrade-btn' value='upgrade' style={{verticalAlign: "middle"}}>UPGRADE</button></a>
     
                         <div className="dropdown">
                           <button className="profile-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,7 +53,7 @@ export class AlbumPage extends Component {
                         <h4 className = "mt-2">albums</h4>
                         <h2 id="albumName">bohemian rhapsody</h2><h5>(the original soundtrack)</h5>
                         <div className='mt-4 last-line'>
-                          <img src='./assets/queen.jpg' alt='queen' className='group-img'>
+                          <img src='./assets/queen.jpg' alt='queen' className='group-img'/>
                           <h6><a href='./artist-page.html' className='group-name'>Queen</a></h6>
                           <p className='album-length'>2018 • 22 songs, 1 hr 19 min</p>
                         </div>
@@ -82,10 +83,11 @@ export class AlbumPage extends Component {
                           </thead>
                           <tbody>
                               <tr  className="songRow">
-                              <th scope="row" style={{verticalAlign: "middle">
+                              {/* <th scope="row" style={{verticalAlign: "middle">
                                 <span className='track-num'>1 </span>
                                   <img src="https://img.icons8.com/android/16/b3b3b3/play.png" onclick="printInnerText()" className='track-play play-track-btn'/>
-</th>                              <td>
+</th>                               */}
+<td>
                                 <ul>
                                   <li className='song'>20th Centry Fox Fanfare</li>
                                   <li className='group' style={{verticalAlign: "middle"}}>Queen</li>
@@ -276,6 +278,7 @@ export class AlbumPage extends Component {
     
         </div>
         </div>
+        </>
         )
                               }
                             }

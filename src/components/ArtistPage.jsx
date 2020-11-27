@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Links } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./CSS/ArtistPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -164,8 +164,9 @@ export class ArtistPage extends Component {
       </div> */}
               </ul>
             </div>
-          </div>
-        </div>
+          
+       
+       
         <h1 class="index-headings d-none d-md-block">
           Queen
         </h1>
@@ -196,6 +197,8 @@ export class ArtistPage extends Component {
             </div>
           )}
         </div>
+      </div>
+      </div>
       </>
     );
   }
