@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./CSS/ArtistPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Image, Col, Spinner } from "react-bootstrap";
+import { Image, Row, Spinner } from "react-bootstrap";
 import Background from "../assets/rock-concert.jpg";
 import AlbumCard from "./AlbumCard"
 
@@ -171,19 +171,11 @@ export class ArtistPage extends Component {
           Queen
         </h1>
         <div className="album-container">
+        <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4 no-gutters text-center">
 
           {!this.state.loading ? (
             this.state.Artists.map(artist => (
-              <Col
-                xs={2}
-                //  md={3}
-                //  lg={2}
-                key={`${artist.id}`}
-                className="mb-3"
-              >
-                <AlbumCard albumTitle={artist.title_short} img={artist.album.cover} artist={artist.artist.name} trackName={artist.title_short} />
-
-              </Col>
+              <AlbumCard albumTitle={artist.title_short} img={artist.album.cover} artist={artist.artist.name} trackName={artist.title_short} />
             ))
           ) : (
             <div className="d-block w-100 mb-5 mt-5">
@@ -196,6 +188,7 @@ export class ArtistPage extends Component {
               <Spinner animation="border" variant="danger" disabled />
             </div>
           )}
+          </Row>
         </div>
       </div>
       </div>
