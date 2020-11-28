@@ -18,13 +18,13 @@ export class AlbumCard extends Component {
                 className="card-img-top"
                 alt="album cover"
               />
-              <FontAwesomeIcon classNameName="spotify-card-icon fab fa-spotify" icon={faSpotify}/>
+              <FontAwesomeIcon className="spotify-card-icon fab fa-spotify" icon={faSpotify}/>
 
               <span className="overlay-icons"
                 >
-                <FontAwesomeIcon classNameName="heart far fa-heart fa-sm mr-5" icon={faHeart}/>
-                <FontAwesomeIcon classNameName="play fas fa-play fa-1x mr-5" icon={faPlay}/>
-                <FontAwesomeIcon classNameName="fa fa-ellipsis-h fa-sm" icon={faEllipsisH}/>
+                <FontAwesomeIcon className="heart far fa-heart fa-sm mr-5" icon={faHeart}/>
+                <FontAwesomeIcon className="play fas fa-play fa-1x mr-5" icon={faPlay}/>
+                <FontAwesomeIcon className="fa fa-ellipsis-h fa-sm" icon={faEllipsisH}/>
               </span>
               <div>
                 <h6>{this.props.albumTitle}</h6>

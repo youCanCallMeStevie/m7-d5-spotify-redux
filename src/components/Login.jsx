@@ -10,7 +10,8 @@ import "./CSS/Login.css";
 export class Login extends Component {
     render() {
         return (
-            <section className="container-fluid position-relative" style={{backgroundColor: "white"}}>
+            <body className="login-body justify-content-center">
+            <section>
             <div className="login-logo">
               <a href="index.html"><img src={Logo} /></a>
             </div>
@@ -64,6 +65,7 @@ export class Login extends Component {
               </div>
             </div>
           </section>
+          </body>
         )
     }
 }

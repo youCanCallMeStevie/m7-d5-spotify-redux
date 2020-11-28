@@ -173,21 +173,11 @@ export class ArtistPage extends Component {
         <div className="album-container">
         <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4 no-gutters text-center">
 
-          {!this.state.loading ? (
+          {
             this.state.Artists.map(artist => (
               <AlbumCard albumTitle={artist.title_short} img={artist.album.cover} artist={artist.artist.name} trackName={artist.title_short} />
             ))
-          ) : (
-            <div className="d-block w-100 mb-5 mt-5">
-              <h5
-                className="d-inline-block mb-0 mr-2"
-                style={{ color: "white" }}
-              >
-                Loading...
-              </h5>
-              <Spinner animation="border" variant="danger" disabled />
-            </div>
-          )}
+         }
           </Row>
         </div>
       </div>

@@ -19,7 +19,7 @@ export class SideNavBar extends Component {
           </div>
 
           <div className="menu d-flex column justify-content-start align-items-center">
-            <div className="col input-group-prepend">
+            <div className="input-group-prepend">
               <InputGroup className="mb-3">
               <FormControl
 
@@ -39,7 +39,7 @@ export class SideNavBar extends Component {
               <div className="col">
                 <a href="#">
                   {" "}
-                  <FontAwesomeIcon className="fas fa-home fa-lg" icon={faHome}/>Home
+                  <FontAwesomeIcon className="fas fa-home fa-lg mr-3" icon={faHome}/>Home
                 </a>
               </div>
             </div>
@@ -47,26 +47,26 @@ export class SideNavBar extends Component {
               <div className="col">
                 <a href="#">
                   {" "}
-                  <FontAwesomeIcon className="fas fa-book fa-lg" icon={faBook}/>Your library
+                  <FontAwesomeIcon className="fas fa-book fa-lg mr-3" icon={faBook}/>Your library
                 </a>
               </div>
             </div>
             <div className="menu d-flex column justify-content-start align-items-center">
               <div className="col">
                 <a href="#">
-                <FontAwesomeIcon className="fas fa-plus-circle fa-lg"icon={faPlusCircle}/>Create playlist
+                <FontAwesomeIcon className="fas fa-plus-circle fa-lg mr-3"icon={faPlusCircle}/>Create playlist
                 </a>
               </div>
             </div>
             <div className="menu d-flex column justify-content-start align-items-center">
               <div className="col">
                 <a href="#">
-                <FontAwesomeIcon icon={faHeart}/>Liked Songs
+                <FontAwesomeIcon className="fas fa-heart fa-lg mr-3" icon={faHeart}/>Liked Songs
                 </a>
               </div>
             </div>
           
-          <hr />
+          <br/>
           <div className="playlists"></div>
 
           <div className="stick-to-bottom-index-page">

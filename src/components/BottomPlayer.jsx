@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Links } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChalkboard, faHeart, faLaptopHouse, faListOl, faPlay, faRandom, faRedoAlt, faStepBackward, faStepForward, faVolumeMute, faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 import "./CSS/BottomPlayer.css";
@@ -12,7 +11,7 @@ export class BottomPlayer extends Component {
         return (
             <Row
       className="player d-flex justify-content-between"
-   style={{width: "100%", position: "fixed"}}>
+   style={{width: "101.5vw", position: "fixed"}}>
       <div
         className="player-albumart d-flex align-items-center justify-content-start"
       >

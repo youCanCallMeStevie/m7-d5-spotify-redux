@@ -1,15 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Alert } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AlbumLists from "./AlbumLists";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/Home.css";
 import Gallery from "./Gallery";
 
-
 export class Home extends Component {
-
   state = {
     beyonceAlbums: [],
     maxCooperAlbums: [],
@@ -18,16 +13,17 @@ export class Home extends Component {
     comments: [],
     isModalOpen: false,
     selectedAlbumId: null,
-    loading: false,
+    loading: true,
     error: false,
-    urls: ["https://deezerdevs-deezer.p.rapidapi.com/search?q=beyonce", "https://deezerdevs-deezer.p.rapidapi.com/search?q=max%20cooper", "https://deezerdevs-deezer.p.rapidapi.com/search?q=cake"]
-
+    urls: [
+      "https://deezerdevs-deezer.p.rapidapi.com/search?q=beyonce",
+      "https://deezerdevs-deezer.p.rapidapi.com/search?q=max%20cooper",
+      "https://deezerdevs-deezer.p.rapidapi.com/search?q=cake",
+    ],
   };
 
-
-
   // fetchAlbums= async () => {
-       
+
   //   try {
   //     let response = await fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=nirvana`, {
   //       method: "GET",
@@ -53,30 +49,37 @@ export class Home extends Component {
   //   }
   // };
 
-  handleSelectedMovie = (id) => {
+  handleSelectedMovie = id => {
     console.log("selected album id changed", id);
     this.setState({ selectedAlbumId: id });
   };
 
-
-fetchAlbums =  async () => {
-const response = await Promise.all(
-      this.state.urls.map(async (url) => {
+  fetchAlbums = async () => {
+    const response = await Promise.all(
+      this.state.urls.map(async url => {
         const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                  "x-rapidapi-key": "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
-                  "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-                },
-              })
+          method: "GET",
+          headers: {
+            "x-rapidapi-key":
+              "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
+            "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+          },
+        });
         return response.json();
       })
     );
-   this.setState({beyonceAlbums:response[0].data, maxCooperAlbums:response[1].data, cakeAlbums: response[2].data})
-  console.log(response);
-  }
+    setTimeout(() => {
+      this.setState({
+        beyonceAlbums: response[0].data,
+        maxCooperAlbums: response[1].data,
+        cakeAlbums: response[2].data,
+        loading: false,
+      });
+    }, 750);
+    console.log(response);
+  };
 
-  fetchComments = async (id) => {
+  fetchComments = async id => {
     console.log("fetch", id);
 
     const url = "https://striveschool-api.herokuapp.com/api/comments/";
@@ -95,7 +98,7 @@ const response = await Promise.all(
     );
   };
 
-  handleOpenModal = (imdbID) => {
+  handleOpenModal = imdbID => {
     this.setState({ isModalOpen: true, selectedMovieID: imdbID });
     this.fetchComments(imdbID);
   };
@@ -108,12 +111,9 @@ const response = await Promise.all(
     this.fetchAlbums();
   }
 
-
-
-
   render() {
     return (
-      <section className="mainframe">
+      <section className="mainframe home-body">
         <div className="main-content d-flex flex-column">
           <div className="justify-content-center">
             <div>
@@ -201,7 +201,6 @@ const response = await Promise.all(
             </div>
           </div>
 
-        
           {this.state.error && (
             <Alert variant="danger" className="text-center">
               An error has occurred, please try again later
@@ -225,45 +224,40 @@ const response = await Promise.all(
           {/* {!this.state.error &&
             (!this.props.searchedMovies.length > 0 ||
               this.props.searchedLoading === null) && ( */}
-              <>
-                <Gallery
-                  title="Beyonce"
-                  loading={this.state.loading}
-                  Albums={this.state.beyonceAlbums.slice(0, 6)}
-                  comments={this.state.comments}
-                  // fetchComments={this.fetchComments}
-                  // handleOpenModal={this.handleOpenModal}
-                  // selectedMovieID={this.handleSelectedMovie}
-                />
-                <Gallery
-                  title="Max Cooper"
-                  loading={this.state.loading}
-                  Albums={this.state.maxCooperAlbums.slice(0, 6)}
-                  comments={this.state.comments}
-                  // fetchComments={this.fetchComments}
-                  // handleOpenModal={this.handleOpenModal}
-                  // selectedMovieID={this.handleSelectedMovie}
-                />
-                <Gallery
-                  title="Cake"
-                  loading={this.state.loading}
-                  Albums={this.state.cakeAlbums.slice(0, 6)}
-                  comments={this.state.comments}
-                  // fetchComments={this.fetchComments}
-                  // handleOpenModal={this.handleOpenModal}
-                  // selectedMovieID={this.handleSelectedMovie}
-                /> 
-              </>
-          
 
-
-
-
-
+          <>
+            <Gallery
+              title="Beyonce"
+              loading={this.state.loading}
+              Albums={this.state.beyonceAlbums.slice(0, 6)}
+              comments={this.state.comments}
+              // fetchComments={this.fetchComments}
+              // handleOpenModal={this.handleOpenModal}
+              // selectedMovieID={this.handleSelectedMovie}
+            />
+            <Gallery
+              title="Max Cooper"
+              loading={this.state.loading}
+              Albums={this.state.maxCooperAlbums.slice(0, 6)}
+              comments={this.state.comments}
+              // fetchComments={this.fetchComments}
+              // handleOpenModal={this.handleOpenModal}
+              // selectedMovieID={this.handleSelectedMovie}
+            />
+            <Gallery
+              title="Cake"
+              loading={this.state.loading}
+              Albums={this.state.cakeAlbums.slice(0, 6)}
+              comments={this.state.comments}
+              // fetchComments={this.fetchComments}
+              // handleOpenModal={this.handleOpenModal}
+              // selectedMovieID={this.handleSelectedMovie}
+            />
+          </>
         </div>
       </section>
     );
   }
-};
+}
 
 export default Home;
