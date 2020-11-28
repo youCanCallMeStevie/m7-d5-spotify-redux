@@ -1,12 +1,116 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AlbumLists from "./AlbumLists";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/Home.css";
+import Gallery from "./Gallery";
+
 
 export class Home extends Component {
+
+  state = {
+    beyonceAlbums: [],
+    maxCooperAlbums: [],
+    cakeAlbums: [],
+    // selectedMovieID: null,
+    comments: [],
+    isModalOpen: false,
+    selectedAlbumId: null,
+    loading: false,
+    error: false,
+    urls: ["https://deezerdevs-deezer.p.rapidapi.com/search?q=beyonce", "https://deezerdevs-deezer.p.rapidapi.com/search?q=max%20cooper", "https://deezerdevs-deezer.p.rapidapi.com/search?q=cake"]
+
+  };
+
+
+
+  // fetchAlbums= async () => {
+       
+  //   try {
+  //     let response = await fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=nirvana`, {
+  //       method: "GET",
+  //       headers: {
+  //         "x-rapidapi-key": "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
+  //         "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+  //       },
+  //     })
+  //     if (response.ok) {
+  //       // console.log(response)
+  //       let albums = await response.json();
+  //       console.log(albums)
+  //       setTimeout(() => {
+  //         this.setState({ Albums: albums.data, loading: false }); //after the fetch is completed, and we have the info the info we are asking for, we are reverting the loading state
+  //       }, 1000);
+  //     } else {
+  //       console.log("An error has happened!");
+  //       this.setState({ loading: false });
+  //     }
+  //   } catch (error) {
+  //     console.log("There has been an error", error);
+  //     this.setState({ loading: false });
+  //   }
+  // };
+
+  handleSelectedMovie = (id) => {
+    console.log("selected album id changed", id);
+    this.setState({ selectedAlbumId: id });
+  };
+
+
+fetchAlbums =  async () => {
+const response = await Promise.all(
+      this.state.urls.map(async (url) => {
+        const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                  "x-rapidapi-key": "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
+                  "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+                },
+              })
+        return response.json();
+      })
+    );
+   this.setState({beyonceAlbums:response[0].data, maxCooperAlbums:response[1].data, cakeAlbums: response[2].data})
+  console.log(response);
+  }
+
+  fetchComments = async (id) => {
+    console.log("fetch", id);
+
+    const url = "https://striveschool-api.herokuapp.com/api/comments/";
+
+    let response = await fetch(url + id, {
+      headers: new Headers({
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI2NmUzNTk4MzViMDAwMTc1ODRlZWQiLCJpYXQiOjE2MDU4MjA1NjUsImV4cCI6MTYwNzAzMDE2NX0.mgz_c-3UHAribI3ogIYDAyR7XqpT7ZWCzSPHwrhU19w",
+      }),
+    });
+
+    let comments = await response.json();
+
+    this.setState({ comments }, () =>
+      console.log("awaited comments", this.state.comments)
+    );
+  };
+
+  handleOpenModal = (imdbID) => {
+    this.setState({ isModalOpen: true, selectedMovieID: imdbID });
+    this.fetchComments(imdbID);
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isModalOpen: false });
+  };
+
+  componentDidMount() {
+    this.fetchAlbums();
+  }
+
+
+
+
   render() {
     return (
       <section className="mainframe">
@@ -97,11 +201,69 @@ export class Home extends Component {
             </div>
           </div>
 
-          <AlbumLists />
+        
+          {this.state.error && (
+            <Alert variant="danger" className="text-center">
+              An error has occurred, please try again later
+            </Alert>
+          )}
+
+          {/* {!this.state.error &&
+            (this.props.searchedMovies.length > 0 ||
+              this.props.searchedLoading === true) && (
+              <Gallery
+                title="Search Results"
+                loading={this.props.searchedLoading}
+                movies={this.props.searchedMovies}
+                comments={this.state.comments}
+                fetchComments={this.fetchComments}
+                handleOpenModal={this.handleOpenModal}
+                // selectedMovieID={this.handleSelectedMovie}
+              />
+            )} */}
+
+          {/* {!this.state.error &&
+            (!this.props.searchedMovies.length > 0 ||
+              this.props.searchedLoading === null) && ( */}
+              <>
+                <Gallery
+                  title="Beyonce"
+                  loading={this.state.loading}
+                  Albums={this.state.beyonceAlbums.slice(0, 6)}
+                  comments={this.state.comments}
+                  // fetchComments={this.fetchComments}
+                  // handleOpenModal={this.handleOpenModal}
+                  // selectedMovieID={this.handleSelectedMovie}
+                />
+                <Gallery
+                  title="Max Cooper"
+                  loading={this.state.loading}
+                  Albums={this.state.maxCooperAlbums.slice(0, 6)}
+                  comments={this.state.comments}
+                  // fetchComments={this.fetchComments}
+                  // handleOpenModal={this.handleOpenModal}
+                  // selectedMovieID={this.handleSelectedMovie}
+                />
+                <Gallery
+                  title="Cake"
+                  loading={this.state.loading}
+                  Albums={this.state.cakeAlbums.slice(0, 6)}
+                  comments={this.state.comments}
+                  // fetchComments={this.fetchComments}
+                  // handleOpenModal={this.handleOpenModal}
+                  // selectedMovieID={this.handleSelectedMovie}
+                /> 
+              </>
+          
+
+
+
+
+
         </div>
       </section>
     );
   }
-}
+};
 
 export default Home;
