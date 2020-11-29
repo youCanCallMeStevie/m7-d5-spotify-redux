@@ -66,7 +66,7 @@ export class ArtistPage extends Component {
         console.log(artistAlbums);
         if (response.ok) {
           this.setState({
-            artistAlbums: artistAlbums,
+            artistAlbums: artistAlbums.data,
             loading: false,
           });
         } else {
@@ -238,7 +238,7 @@ const { artistInfo } = this.state;
           <Gallery
               title={artistInfo.name}
               loading={this.state.loading}
-              Albums={this.state.artistAlbums.data}
+              Albums={this.state.artistAlbums}
               comments={this.state.comments} 
               // fetchComments={this.fetchComments}
               // handleOpenModal={this.handleOpenModal}
