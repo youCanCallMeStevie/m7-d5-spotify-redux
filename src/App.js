@@ -1,36 +1,114 @@
-import './App.css';
+import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import React from "react";
 import BottomPlayer from "./components/BottomPlayer";
-import Home from './components/Home';
-import ArtistPage from "./components/ArtistPage"
-import Login from "./components/Login"
-import AlbumPage from "./components/AlbumPage"
-import SideNavBar from './components/SideNavBar';
+import Home from "./components/Home";
+import ArtistPage from "./components/ArtistPage";
+import Login from "./components/Login";
+import AlbumPage from "./components/AlbumPage";
+import SideNavBar from "./components/SideNavBar";
+import { Component } from "react";
 
-function App() {
-  return (
-    <Router className="App">
-      <Route
-        path="/album"
-        exact render={props => <AlbumPage {...props} />}
-      />
-      <Route path={["/artist", "/artist/:id", "/home", "/album"]}  component={SideNavBar} />
-      <Route path={["/artist", "/artist/:id", "/home", "/album"]}  component={BottomPlayer} />
-      <Route
-        path="/home"
-        exact render={props => <Home {...props} />}
-      />
-    <Route
-        path={["/artist", "/artist/:id"]}
-       render={props => <ArtistPage {...props} />}
-      />
-      <Route
-        path="/login"
-        exact render={props => <Login {...props} />}
-      />
-    </Router>
-  );
+class App extends React.Component {
+  // state = {
+  //   query: "",
+  //   isTyped: false,
+  // };
+
+  // searchHandler = e => {
+  //   e.preventDefault();
+  //   if (e.length > 2) {
+  //     this.setState({ keyWord: e, isTyped: true });
+  //   } else {
+  //     this.setState({ keyWord: "", isTyped: false });
+  //   }
+  // };
+
+  state = { searchedAlbums: [], searchedLoading: null, searchString: "" };
+
+  showSearchResult = searchString => {
+    this.setState({ searchedLoading: true });
+
+    fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${searchString}`, {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
+        "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then(response => {
+        this.setState({
+          searchedAlbums: response.data,
+        });
+        this.setState({ searchedLoading: false });
+      })
+
+      .catch(error => {
+        this.setState({ searchedLoading: null });
+        console.log(error);
+      });
+  };
+
+  render() {
+    return (
+      <Router className="App">
+        <Route
+          path="/album"
+          exact
+          render={props => (
+            <AlbumPage
+              {...props}
+              searchedAlbums={this.state.searchedAlbums}
+              searchedLoading={this.state.searchedLoading}
+            />
+          )}
+        />
+        <Route
+          path={["/artist", "/artist/:id/:name", "/home", "/album"]}
+          exact
+          render={props => (
+            <SideNavBar
+              {...props}
+              searchedAlbums={this.state.searchedAlbums}
+              searchedLoading={this.state.searchedLoading}
+              showSearchResult={this.showSearchResult}
+            />
+          )}
+        />
+        <Route
+          path={["/artist", "/artist/:id", "/home", "/album"]}
+          component={BottomPlayer}
+        />
+        <Route
+          path="/home"
+          exact
+          render={props => (
+            <Home
+              {...props}
+              searchedAlbums={this.state.searchedAlbums}
+              searchedLoading={this.state.searchedLoading}
+            />
+          )}
+        />
+        <Route
+          path={["/artist", "/artist/:id"]}
+          render={props => (
+            <ArtistPage
+              {...props}
+              searchedAlbums={this.state.searchedAlbums}
+              searchedLoading={this.state.searchedLoading}
+            />
+          )}
+        />
+        <Route path="/login" exact render={props => <Login {...props} />} />
+      </Router>
+    );
+  }
 }
 
 export default App;

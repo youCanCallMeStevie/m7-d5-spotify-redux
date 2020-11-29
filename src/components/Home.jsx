@@ -22,37 +22,11 @@ export class Home extends Component {
     ],
   };
 
-  // fetchAlbums= async () => {
-
-  //   try {
-  //     let response = await fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=nirvana`, {
-  //       method: "GET",
-  //       headers: {
-  //         "x-rapidapi-key": "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
-  //         "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-  //       },
-  //     })
-  //     if (response.ok) {
-  //       // console.log(response)
-  //       let albums = await response.json();
-  //       console.log(albums)
-  //       setTimeout(() => {
-  //         this.setState({ Albums: albums.data, loading: false }); //after the fetch is completed, and we have the info the info we are asking for, we are reverting the loading state
-  //       }, 1000);
-  //     } else {
-  //       console.log("An error has happened!");
-  //       this.setState({ loading: false });
-  //     }
-  //   } catch (error) {
-  //     console.log("There has been an error", error);
-  //     this.setState({ loading: false });
-  //   }
-  // };
-
-  handleSelectedMovie = id => {
+  handleSelectedAlbum = (id) => {
     console.log("selected album id changed", id);
     this.setState({ selectedAlbumId: id });
   };
+
 
   fetchAlbums = async () => {
     const response = await Promise.all(
@@ -79,33 +53,33 @@ export class Home extends Component {
     console.log(response);
   };
 
-  fetchComments = async id => {
-    console.log("fetch", id);
+  // fetchComments = async id => {
+  //   console.log("fetch", id);
 
-    const url = "https://striveschool-api.herokuapp.com/api/comments/";
+  //   const url = "https://striveschool-api.herokuapp.com/api/comments/";
 
-    let response = await fetch(url + id, {
-      headers: new Headers({
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI2NmUzNTk4MzViMDAwMTc1ODRlZWQiLCJpYXQiOjE2MDU4MjA1NjUsImV4cCI6MTYwNzAzMDE2NX0.mgz_c-3UHAribI3ogIYDAyR7XqpT7ZWCzSPHwrhU19w",
-      }),
-    });
+  //   let response = await fetch(url + id, {
+  //     headers: new Headers({
+  //       Authorization:
+  //         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI2NmUzNTk4MzViMDAwMTc1ODRlZWQiLCJpYXQiOjE2MDU4MjA1NjUsImV4cCI6MTYwNzAzMDE2NX0.mgz_c-3UHAribI3ogIYDAyR7XqpT7ZWCzSPHwrhU19w",
+  //     }),
+  //   });
 
-    let comments = await response.json();
+  //   let comments = await response.json();
 
-    this.setState({ comments }, () =>
-      console.log("awaited comments", this.state.comments)
-    );
-  };
+  //   this.setState({ comments }, () =>
+  //     console.log("awaited comments", this.state.comments)
+  //   );
+  // };
 
-  handleOpenModal = imdbID => {
-    this.setState({ isModalOpen: true, selectedMovieID: imdbID });
-    this.fetchComments(imdbID);
-  };
+  // handleOpenModal = imdbID => {
+  //   this.setState({ isModalOpen: true, selectedMovieID: imdbID });
+  //   this.fetchComments(imdbID);
+  // };
 
-  handleCloseModal = () => {
-    this.setState({ isModalOpen: false });
-  };
+  // handleCloseModal = () => {
+  //   this.setState({ isModalOpen: false });
+  // };
 
   componentDidMount() {
     this.fetchAlbums();
@@ -113,7 +87,7 @@ export class Home extends Component {
 
   render() {
     return (
-      <section className="mainframe home-body">
+      <section className="home-body">
         <div className="main-content d-flex flex-column">
           <div className="justify-content-center">
             <div>
@@ -206,26 +180,23 @@ export class Home extends Component {
               An error has occurred, please try again later
             </Alert>
           )}
-
-          {/* {!this.state.error &&
-            (this.props.searchedMovies.length > 0 ||
+{!this.state.error &&
+            (this.props.searchedAlbums.length > 0 ||
               this.props.searchedLoading === true) && (
               <Gallery
                 title="Search Results"
                 loading={this.props.searchedLoading}
-                movies={this.props.searchedMovies}
+                Albums={this.props.searchedAlbums}
                 comments={this.state.comments}
-                fetchComments={this.fetchComments}
-                handleOpenModal={this.handleOpenModal}
-                // selectedMovieID={this.handleSelectedMovie}
+                // fetchComments={this.fetchComments}
+                // handleOpenModal={this.handleOpenModal}
+                // selectedAlbumId={this.handleSelectedAlbum}
               />
-            )} */}
-
-          {/* {!this.state.error &&
-            (!this.props.searchedMovies.length > 0 ||
-              this.props.searchedLoading === null) && ( */}
-
-          <>
+            )}
+{!this.state.error &&
+            (!this.props.searchedAlbums.length > 0 ||
+              this.props.searchedLoading === null) && (
+              <>
             <Gallery
               title="Beyonce"
               loading={this.state.loading}
@@ -233,7 +204,7 @@ export class Home extends Component {
               comments={this.state.comments}
               // fetchComments={this.fetchComments}
               // handleOpenModal={this.handleOpenModal}
-              // selectedMovieID={this.handleSelectedMovie}
+              // selectedAlbumId={this.handleSelectedAlbum}
             />
             <Gallery
               title="Max Cooper"
@@ -242,7 +213,7 @@ export class Home extends Component {
               comments={this.state.comments}
               // fetchComments={this.fetchComments}
               // handleOpenModal={this.handleOpenModal}
-              // selectedMovieID={this.handleSelectedMovie}
+              // selectedAlbumId={this.handleSelectedAlbum}
             />
             <Gallery
               title="Cake"
@@ -251,9 +222,10 @@ export class Home extends Component {
               comments={this.state.comments}
               // fetchComments={this.fetchComments}
               // handleOpenModal={this.handleOpenModal}
-              // selectedMovieID={this.handleSelectedMovie}
+              // selectedAlbumId={this.handleSelectedAlbum}
             />
           </>
+              )}
         </div>
       </section>
     );

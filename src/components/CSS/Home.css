@@ -31,22 +31,23 @@
   font-family: "Circular", Arial, Helvetica, sans-serif;
   overflow: hidden;
 }
-.mainframe {
+/* .mainframe {
   max-height: calc(100vh - 90px);
   height: fit-content;
+  height: 100%;
   max-width: 100vw;
   width: 100%;
   display: flex;
   flex-direction: row;
   overflow-y: auto;
-}
+} */
 .main-content {
   max-width: calc(100vw - 232px);
   width: 100%;
   margin-left: 232px;
   padding-left: 1rem;
   overflow-y: auto;
-  height: 100vh;
+  max-height: calc(100vh - 90px);
 }
 
 .nav {

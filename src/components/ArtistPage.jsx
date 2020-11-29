@@ -5,71 +5,64 @@ import "./CSS/ArtistPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Image, Row, Spinner } from "react-bootstrap";
 import Background from "../assets/rock-concert.jpg";
-import AlbumCard from "./AlbumCard"
+import Gallery from "./Gallery"
 
 export class ArtistPage extends Component {
-  state = {
-    Artists: [],
-    selectedAlbum: null,
-    loading: true,
-  };
+state = { 
+// artistInfo: [], 
+// trackList: [], 
+// loading: true,
+// error: false,
+};
 
-  fetchArtist = async () => {
-    try {
-      let response = await fetch(
-        `https://deezerdevs-deezer.p.rapidapi.com/search?q=queen`,
-        {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key":
-              "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
-            "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-          },
-        }
-      );
-      if (response.ok) {
-        // console.log(response)
-        let artists = await response.json();
-        console.log(artists);
-        setTimeout(() => {
-          this.setState({ Artists: artists.data, loading: false }); //after the fetch is completed, and we have the info the info we are asking for, we are reverting the loading state
-        }, 1000);
-      } else {
-        console.log("An error has happened!");
-        this.setState({ loading: false });
-      }
-    } catch (error) {
-      console.log("There has been an error", error);
-      this.setState({ loading: false });
-    }
-  };
+	getArtistInfo = async () => {
+		const artistId = this.props.match.params.id;
 
-  componentDidMount = () => {
-    console.log("Artist has finished mounting");
-    this.fetchArtist();
-  };
+		try {
+			const response = await fetch(
+				" https://deezerdevs-deezer.p.rapidapi.com/artist/" + artistId,
 
-  componentDidUpdate = previousProps => {
-    if (previousProps.query !== this.props.query) {
-      //it means we selected a new movie from the dropdown,also changing the props & not in the state
-      console.log("Previous Artist is different than Current album");
-      console.log("Performing the fetch");
-      this.fetchArtist();
-    }
-  };
+				{
+					method: "GET",
+					headers: {
+						"x-rapidapi-key":
+							"91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
+						"x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+					},
+				}
+			);
+			const artistInfo = await response.json();
+			if (response.ok) {
+				this.setState({ artistInfo, loading: false });
+			} else {
+				this.setState({ loading: false, error: true });
+			}
+		} catch (error) {
+			console.log(error);
+			this.setState({ loading: false, error: true });
+		}
+	};
 
+	componentDidMount() {
+		this.getArtistInfo();
+	}
   render() {
     return (
-      <>
         <div className="mainframe">
           <div className="main-content">
             <Image src={Background} />
+            {/* <Image
+										src={artistInfo.picture_big}
+										alt='artist'
+									/> */}
+
+
             <div className=" mt-3 justify-center">
               <div className="jumbotron d-flex justify-content-center flex-column">
                 <h6>33,000,575 MONTHLY LISTENERS</h6>
                 <h1 className="display-4">QUEEN</h1>
-                <div className="d-flex d-md-none  row">
-                  <a className="artist-pg-play-btn btn" href="#" role="button">
+                <div className="d-flex d-md-none row justify-content-center">
+                  <a className="artist-pg-follow-btn btn btn-outline-light btn-lg" href="#" role="button">
                     PLAY
                   </a>
                   <a
@@ -80,8 +73,8 @@ export class ArtistPage extends Component {
                     FOLLOW
                   </a>
                 </div>
-                <div className="d-none d-md-flex column">
-                  <a className="artist-pg-play-btn btn" href="#" role="button">
+                <div className="d-none d-md-flex column ">
+                  <a className="artist-pg-follow-btn btn btn-outline-light btn-lg " href="#" role="button">
                     PLAY
                   </a>
                   <a
@@ -165,24 +158,20 @@ export class ArtistPage extends Component {
               </ul>
             </div>
           
-       
-       
-        <h1 class="index-headings d-none d-md-block">
-          Queen
-        </h1>
-        <div className="album-container">
-        <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4 no-gutters text-center">
-
-          {
-            this.state.Artists.map(artist => (
-              <AlbumCard albumTitle={artist.title_short} img={artist.album.cover} artist={artist.artist.name} trackName={artist.title_short} />
-            ))
-         }
-          </Row>
-        </div>
+ 
+{/* <Gallery
+              title="Queen"
+              loading={this.state.loading}
+              Albums={this.state.Artists.slice(0, 24)}
+              comments={this.state.comments} 
+              // fetchComments={this.fetchComments}
+              // handleOpenModal={this.handleOpenModal}
+              // selectedMovieID={this.handleSelectedMovie}
+              />
+       </> */}
       </div>
       </div>
-      </>
+    
     );
   }
 }

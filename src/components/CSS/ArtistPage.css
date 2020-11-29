@@ -116,6 +116,7 @@ body {
 .artist-pg-play-btn,
 .artist-pg-follow-btn {
   max-width: 150px;
+  min-width: 150px;
   padding: 0.75rem;
   margin: 0.25rem;
   color: white;

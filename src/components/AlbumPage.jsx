@@ -42,7 +42,7 @@ export class AlbumPage extends Component {
                       </div>
                     </div> 
                
-                    <div className='album row'>
+                    <div className='album mt-5 row'>
                       <div className='col-12 col-md-6 col-lg-4'>
                         <img id="coverAlbum"  className='album-cover img-fluid' src='./assets/bohemian-rhapsody.jpg' alt='bohemian rhapsody' />
                       </div>

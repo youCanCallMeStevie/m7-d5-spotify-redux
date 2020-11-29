@@ -13,23 +13,30 @@ export class AlbumCard extends Component {
         //   <div className="row no-gutters d-flex">       <Col className="mb-2">
 
             <Col className="myCard card trending mb-2" id="sampleCard">
+              
+              <div>
+                <h6>{this.props.albumTitle.length > 20 ? this.props.albumTitle.slice(0, 20) + "..." :this.props.albumTitle}</h6>
+                <h6>
+                <Link
+							
+							to={`/artist/${this.props.id}/${this.props.artist}`}>
+							{this.props.artist}
+						</Link></h6>
+              </div>
               <Image
                 src={this.props.img}
                 className="card-img-top"
                 alt="album cover"
               />
+              
               <FontAwesomeIcon className="spotify-card-icon fab fa-spotify" icon={faSpotify}/>
-
               <span className="overlay-icons"
                 >
-                <FontAwesomeIcon className="heart far fa-heart fa-sm mr-5" icon={faHeart}/>
-                <FontAwesomeIcon className="play fas fa-play fa-1x mr-5" icon={faPlay}/>
+                <FontAwesomeIcon className="heart far fa-heart fa-sm mr-3" icon={faHeart}/>
+                <FontAwesomeIcon className="play fas fa-play fa-1x mr-3" icon={faPlay}/>
                 <FontAwesomeIcon className="fa fa-ellipsis-h fa-sm" icon={faEllipsisH}/>
               </span>
-              <div>
-                <h6>{this.props.albumTitle}</h6>
-                <h6><Link to="/artist">{this.props.artist}</Link></h6>
-              </div>
+             
             </Col>
 
                 //   </div>
