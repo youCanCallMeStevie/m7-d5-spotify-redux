@@ -56,7 +56,7 @@ class App extends React.Component {
           )}
         />
         <Route
-          path={["/artist/:id/", "/home", "/album"]}
+          path={["/artist/:id/:name", "/home", "/album"]}
           exact
           render={props => (
             <SideNavBar
@@ -68,7 +68,7 @@ class App extends React.Component {
           )}
         />
         <Route
-          path={["/artist/:id", "/home", "/album"]}
+          path={["/artist/:id/:name", "/home", "/album"]}
           component={BottomPlayer}
         />
         <Route
@@ -83,7 +83,7 @@ class App extends React.Component {
           )}
         />
         <Route
-          path="/artist/:id"
+          path="/artist/:id/:name"
           render={props => (
             <ArtistPage
               {...props}

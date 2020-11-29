@@ -21,7 +21,7 @@ class Gallery extends React.Component {
               {this.props.Albums.map((album) => (
                 <AlbumCard
                 albumTitle={album.title_short} img={album.album.cover} artist={album.artist.name} trackName={album.title_short} 
-                  id={album.id} />
+                  id={album.album.id} artistId={album.artist.id}/>
                   // selectedMovieID={selectedMovieID}
               ))}
             </>
