@@ -36,8 +36,8 @@ export class BottomPlayer extends Component {
        <div className="fa-lg">
          <FontAwesomeIcon className="fas fa-play fa-md mx-3" icon={faPlay} />
        </div>
-       <FontAwesomeIcon class="fas fa-step-backward fa-md mx-3"  icon={faStepForward}/>
-       <FontAwesomeIcon class="d-md-flex fas fa-redo-alt fg-md mx-3"  icon={faRedoAlt}/>
+       <FontAwesomeIcon className="fas fa-step-backward fa-md mx-3"  icon={faStepForward}/>
+       <FontAwesomeIcon className="d-md-flex fas fa-redo-alt fg-md mx-3"  icon={faRedoAlt}/>
      </div>
      <div className="d-none d-sm-flex flex-row justify-content-between player-nowplaying position-relative">
        <div className="player-nowplaying-time">18:32</div>

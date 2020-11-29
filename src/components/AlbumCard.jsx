@@ -19,7 +19,7 @@ export class AlbumCard extends Component {
                 <h6>
                 <Link
 							
-							to={`/artist/${this.props.id}/${this.props.artist}`}>
+							to={`/artist/${this.props.id}`}>
 							{this.props.artist}
 						</Link></h6>
               </div>

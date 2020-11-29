@@ -3,39 +3,41 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./CSS/ArtistPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Image, Row, Spinner } from "react-bootstrap";
+import { Image, Alert } from "react-bootstrap";
 import Background from "../assets/rock-concert.jpg";
 import Gallery from "./Gallery"
 
 export class ArtistPage extends Component {
 state = { 
-// artistInfo: [], 
+artistInfo: [], 
 // trackList: [], 
 // loading: true,
 // error: false,
 };
 
-	getArtistInfo = async () => {
-		const artistId = this.props.match.params.id;
+	fetchArtist = async () => {
+    const artistId = this.props.match.params.id
+    console.log(this.props.match.params.id)
 
 		try {
-			const response = await fetch(
-				" https://deezerdevs-deezer.p.rapidapi.com/artist/" + artistId,
+			let response = await fetch(
+        "https://deezerdevs-deezer.p.rapidapi.com/artist/" + artistId,
+        
 
-				{
-					method: "GET",
-					headers: {
-						"x-rapidapi-key":
-							"91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
-						"x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+				{method: "GET",
+            headers: {
+              "x-rapidapi-key": "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
+              "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
 					},
 				}
 			);
-			const artistInfo = await response.json();
-			if (response.ok) {
+			let artistInfo = await response.json();
+			if (artistInfo.ok) {
+        console.log(artistInfo)
 				this.setState({ artistInfo, loading: false });
 			} else {
-				this.setState({ loading: false, error: true });
+        this.setState({ loading: false, error: true });
+        <Alert variant="danger">Something went wrong!</Alert>;
 			}
 		} catch (error) {
 			console.log(error);
@@ -44,7 +46,7 @@ state = {
 	};
 
 	componentDidMount() {
-		this.getArtistInfo();
+		this.fetchArtist();
 	}
   render() {
     return (

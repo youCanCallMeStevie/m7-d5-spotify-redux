@@ -10,19 +10,6 @@ import SideNavBar from "./components/SideNavBar";
 import { Component } from "react";
 
 class App extends React.Component {
-  // state = {
-  //   query: "",
-  //   isTyped: false,
-  // };
-
-  // searchHandler = e => {
-  //   e.preventDefault();
-  //   if (e.length > 2) {
-  //     this.setState({ keyWord: e, isTyped: true });
-  //   } else {
-  //     this.setState({ keyWord: "", isTyped: false });
-  //   }
-  // };
 
   state = { searchedAlbums: [], searchedLoading: null, searchString: "" };
 
@@ -69,7 +56,7 @@ class App extends React.Component {
           )}
         />
         <Route
-          path={["/artist", "/artist/:id/:name", "/home", "/album"]}
+          path={["/artist/:id/", "/home", "/album"]}
           exact
           render={props => (
             <SideNavBar
@@ -81,7 +68,7 @@ class App extends React.Component {
           )}
         />
         <Route
-          path={["/artist", "/artist/:id", "/home", "/album"]}
+          path={["/artist/:id", "/home", "/album"]}
           component={BottomPlayer}
         />
         <Route
@@ -96,7 +83,7 @@ class App extends React.Component {
           )}
         />
         <Route
-          path={["/artist", "/artist/:id"]}
+          path="/artist/:id"
           render={props => (
             <ArtistPage
               {...props}
