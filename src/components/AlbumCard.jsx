@@ -15,7 +15,9 @@ export class AlbumCard extends Component {
             <Col className="myCard card trending mb-2" id="sampleCard">
               
               <div>
-                <h6>{this.props.albumTitle.length > 20 ? this.props.albumTitle.slice(0, 20) + "..." :this.props.albumTitle}</h6>
+                <h6><Link
+							
+							to={`/album/${this.props.id}`}>{this.props.albumTitle.length > 20 ? this.props.albumTitle.slice(0, 20) + "..." :this.props.albumTitle}</Link></h6>
                 <h6>
                 <Link
 							
