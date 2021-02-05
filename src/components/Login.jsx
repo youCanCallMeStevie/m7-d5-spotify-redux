@@ -6,8 +6,7 @@ import { Button, Form } from "react-bootstrap";
 // import { faSearch, faHome, faBook, faHeart, faPlusCircle, faArrowCircleDown } from '@fortawesome/free-solid-svg-icons'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/Login.css";
-import { connect } from "react-redux";
-import { setUserDetails } from "../store/user/action";
+import { setUserDetails, isLoggedIn } from "../store/user/action";
 import {useDispatch } from "react-redux";
 
 
@@ -19,6 +18,7 @@ function Login() {
 
   const handleLogin = async (e) => {
     dispatch(setUserDetails(username, password))
+    dispatch(isLoggedIn(true))
   };
 
   const updateLogin = async (e) => {
