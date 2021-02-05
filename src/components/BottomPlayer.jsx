@@ -16,12 +16,14 @@ import {
 import "./CSS/BottomPlayer.css";
 import { Row } from "react-bootstrap";
 import { connect } from "react-redux";
-
+// import ReactPlayer from "react-player";
 const mapStateToProps = (state) => state.player;
 export class BottomPlayer extends Component {
+  handlePlay = () => {};
   componentDidUpdate = (prevProps) => {
-    if (prevProps.player !== this.props.player) {
-      this.setState({});
+    if (prevProps.player?.track !== this.props.player?.track) {
+      const { track } = this.props.player;
+      this.setState({ url: track.preview, played: 0, loaded: 0, pip: false });
     }
   };
   render() {
@@ -38,10 +40,8 @@ export class BottomPlayer extends Component {
             />
           </div>
           <div className=" d-sm-flex flex-column text-left mr-4">
-            <div className="nowplaying-title">{track && track.title}</div>
-            <div className="nowplaying-artist">
-              {track.artist && track.artist.name}
-            </div>
+            <div className="nowplaying-title">{track?.title}</div>
+            <div className="nowplaying-artist">{track.artist?.name}</div>
           </div>
           <div className=" d-lg-flex loved-track mr-3">
             <FontAwesomeIcon className="far fa-heart" icon={faHeart} />
