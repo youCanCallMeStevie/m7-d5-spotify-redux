@@ -4,9 +4,6 @@ import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/Home.css";
 import Gallery from "./Gallery";
-import { connect } from "react-redux";
-
-
 
 //ACTIONS IMPORTS
 
@@ -60,7 +57,7 @@ class Home extends Component {
     console.log(response);
   };
 
-componentDidMount() {
+  componentDidMount() {
     this.fetchAlbums();
   }
 
