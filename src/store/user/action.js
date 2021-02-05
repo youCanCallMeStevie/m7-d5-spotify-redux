@@ -5,4 +5,4 @@ export const setUserDetails = (username, password) => ({
   type: SET_USER_DETAILS,
   payload: { username, password },
 });
-export const isLoggedIn = (toggle) => ({ type: LOGGED_IN, payload: toggle });
+export const isLoggedIn = (toggle) => ({ type: LOGGED_IN });

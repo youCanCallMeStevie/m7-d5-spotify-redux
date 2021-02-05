@@ -19,8 +19,8 @@ import "./CSS/SideNavBar.css";
 const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = (dispatch) => ({
-  isLoggedIn: () => dispatch(isLoggedIn(true)),
-  handleLogout: () => dispatch(isLoggedIn(false)),
+  isLoggedIn: () => dispatch(isLoggedIn()),
+  handleLogout: () => dispatch(isLoggedIn()),
 });
 
 export class SideNavBar extends Component {

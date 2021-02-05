@@ -5,8 +5,8 @@ Features:
 - Homepage, Album page, Artist page
 - When clicking on a song, the name and the details should appear in the "player" section
 - Next to each song, you should be able to "Like" the song. From that moment on, wherever the song appears, the like "status" should be mantained
-- [EXTRA] Implement a login via username storing user data in a different reducer
-- [EXTRA] Be able to add songs to other playlists besides the playing queue
+- [EXTRA] Implement a login via username storing user data in a different reducer 🆗
+- [EXTRA] Be able to add songs to other playlists besides the playing queue > renie
 - [EXTRA] Implement an UNDO functionality
 
 Hints:
