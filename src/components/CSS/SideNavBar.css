@@ -206,3 +206,18 @@ a:hover {
 *::-webkit-scrollbar-thumb:hover {
   background: rgba(110, 110, 110, 0.76);
 }
+
+#show-playlist{
+  background-color: transparent;
+  color:#b3b3b3;
+  border: none;
+  margin-left: -10px;
+}
+
+#add-playlist{
+  margin-top: .5rem;
+  min-width: 80%;
+  max-width: 80%;
+  margin: 0 auto;
+  color: black;
+}

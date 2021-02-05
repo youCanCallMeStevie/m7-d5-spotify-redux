@@ -87,3 +87,8 @@ h6 > a:hover {
   text-decoration: none;
   color: limegreen;
 }
+
+
+#add-to-playlist{
+  display: none;
+}
