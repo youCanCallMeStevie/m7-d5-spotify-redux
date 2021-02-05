@@ -18,7 +18,7 @@ const userReducer = (
         },
       };
     case LOGGED_IN:
-      return { ...state, login: payload };
+      return { ...state, login: !state.login };
     default:
       return state;
   }
