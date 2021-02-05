@@ -23,6 +23,7 @@
   padding-top: 0.5rem;
   bottom: 0px;
   z-index: 10001;
+  width: 101.5vw !important;
 }
 .player-albumart .far:hover,
 .player-albumart .fas:hover,
