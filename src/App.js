@@ -9,10 +9,11 @@ import AlbumPage from "./components/AlbumPage";
 import SideNavBar from "./components/SideNavBar";
 import { Component } from "react";
 import LikedSong from "./components/Liked_Song/LikedSong";
+import ModalPlaylist from "./components/Modal/ModalPlaylist"
 
 class App extends React.Component {
 
-  state = { searchedAlbums: [], searchedLoading: null, searchString: "" };
+  state = { searchedAlbums: [], searchedLoading: null, searchString: "", showModal: false };
 
   showSearchResult = searchString => {
     this.setState({ searchedLoading: true });
@@ -42,13 +43,19 @@ class App extends React.Component {
       });
   };
 
+  showModal = () => {
+    this.setState({ showModal: !this.state.showModal });
+  };
+
   render() {
     return (
       <Router className="App">
+        <ModalPlaylist show={ this.state.showModal} toggle={ this.showModal}/>
         <SideNavBar
-              searchedAlbums={this.state.searchedAlbums}
-              searchedLoading={this.state.searchedLoading}
-              showSearchResult={this.showSearchResult}
+          searchedAlbums={this.state.searchedAlbums}
+          searchedLoading={this.state.searchedLoading}
+          showSearchResult={this.showSearchResult}
+          toggle={ this.showModal}
             />
         <Route
           path="/album/:id"
