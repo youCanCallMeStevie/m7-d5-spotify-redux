@@ -11,10 +11,12 @@ import {
 import "./CSS/AlbumPage.css";
 import { Image, Alert, Table, Spinner, Row } from "react-bootstrap";
 import { connect } from "react-redux";
+import { selectedSong } from "../store/player/actions";
 
 const mapStateToProps = (state) => state;
-
-const mapDispatchToProps = () => {};
+const mapDispatchToProps = (dispatch) => ({
+  handleSelectedSong: (track) => dispatch(selectedSong(track)),
+});
 export class AlbumPage extends Component {
   state = {
     album: {},
@@ -96,7 +98,9 @@ export class AlbumPage extends Component {
                       <h4 className="mt-2">album</h4>
                       <h2 id="albumName">{album.title}</h2>
                       <div className="mt-4 last-line">
-                        <Link to={`/artist/${album.artist.id}`}>
+                        <Link
+                          to={`/artist/${album.artist.id}/${album.artist.name}`}
+                        >
                           <img
                             src={album.artist.picture_small}
                             alt={album.artist.name}
@@ -147,7 +151,13 @@ export class AlbumPage extends Component {
 
                       <tbody>
                         {album.tracks.data.map((track, index) => (
-                          <tr key={track.id} className="songRow">
+                          <tr
+                            key={track.id}
+                            className="songRow"
+                            onClick={(track) =>
+                              this.props.handleSelectedSong(track)
+                            }
+                          >
                             <td style={{ verticalAlign: "middle" }}>
                               <span className="track-num px-2">{index}</span>
                               <FontAwesomeIcon
@@ -181,8 +191,7 @@ export class AlbumPage extends Component {
                       </tbody>
                     </Table>
                     <p className="playlist-footer">
-                      {this.state.album.release_date.substr(0, 4)}{" "}
-                      {this.state.album.label}
+                      {album.release_date.substr(0, 4)} {album.label}
                     </p>
                   </div>
                 </section>
