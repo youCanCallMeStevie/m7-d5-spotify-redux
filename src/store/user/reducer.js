@@ -35,7 +35,6 @@ const userReducer = (
         ...state,
         liked: state.liked.filter((liked) => liked !== payload),
       };
-<<<<<<< HEAD
     case CREATE_PLAYLIST:
       return {
         ...state,
@@ -52,7 +51,6 @@ const userReducer = (
         ...state,
         playlists: playlists
       }
-=======
     case TOGGLE_LIKED_SONG:
       return {
         ...state,
@@ -60,7 +58,6 @@ const userReducer = (
           ? state.liked.filter((song) => song.id !== payload.id)
           : state.liked.concat(payload),
       };
->>>>>>> dev
     default:
       return state;
   }
