@@ -152,7 +152,6 @@ export class SideNavBar extends Component {
     );
   }
 }
-
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(SideNavBar)
 );
