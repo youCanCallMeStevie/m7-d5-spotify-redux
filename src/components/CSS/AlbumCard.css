@@ -87,3 +87,11 @@ h6 > a:hover {
   text-decoration: none;
   color: limegreen;
 }
+
+.fa-ellipsis-h:hover > #add-to-playlist{
+  display: block;
+}
+
+#add-to-playlist{
+  display: none;
+}

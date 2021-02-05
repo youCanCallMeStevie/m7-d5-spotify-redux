@@ -129,15 +129,6 @@ export class SideNavBar extends Component {
             </div>
           </div>
           <input
-            type="button"
-            value="Show Playlist"
-            id="show-playlist"
-            style={{
-              display: this.props.user.playlists.length > 0 ? "" : "none",
-            }}
-            onClick={this.props.toggle}
-          />
-          <input
             id="add-playlist"
             style={{ display: this.state.inputPlaylist ? "" : "none" }}
             type="text"
@@ -145,6 +136,15 @@ export class SideNavBar extends Component {
             onKeyDown={this.addPlaylist}
             onChange={this.addPlaylist}
             value={this.state.playlistName}
+          />
+          <input
+            type="button"
+            value="Show Playlist"
+            id="show-playlist"
+            style={{
+              display: this.props.user.playlists.length > 0 ? "" : "none",
+            }}
+            onClick={this.props.toggle}
           />
           <div className="menu d-flex column justify-content-start align-items-center">
             <div className="col">

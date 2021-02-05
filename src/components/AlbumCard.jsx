@@ -27,6 +27,14 @@ const mapDispatchtoProps = (dispatch) => ({
 });
 
 export class AlbumCard extends Component {
+  state = {
+    showBtn: false,
+  };
+
+  showBtn = () => {
+    this.setState({ showBtn: !this.state.showBtn });
+  };
+
   render() {
     console.log(this.props);
     return (
@@ -70,7 +78,14 @@ export class AlbumCard extends Component {
           <FontAwesomeIcon
             className="fa fa-ellipsis-h fa-sm"
             icon={faEllipsisH}
+            onClick={() => this.showBtn()}
           />
+          <button
+            id="add-to-playlist"
+            style={{ display: this.state.showBtn ? "block" : "none" }}
+          >
+            Add Playlist
+          </button>
         </span>
       </Col>
 
