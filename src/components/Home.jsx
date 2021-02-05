@@ -3,6 +3,9 @@ import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/Home.css";
 import Gallery from "./Gallery";
+import { connect } from "react-redux";
+
+
 
 export class Home extends Component {
   state = {
@@ -53,35 +56,7 @@ export class Home extends Component {
     console.log(response);
   };
 
-  // fetchComments = async id => {
-  //   console.log("fetch", id);
-
-  //   const url = "https://striveschool-api.herokuapp.com/api/comments/";
-
-  //   let response = await fetch(url + id, {
-  //     headers: new Headers({
-  //       Authorization:
-  //         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI2NmUzNTk4MzViMDAwMTc1ODRlZWQiLCJpYXQiOjE2MDU4MjA1NjUsImV4cCI6MTYwNzAzMDE2NX0.mgz_c-3UHAribI3ogIYDAyR7XqpT7ZWCzSPHwrhU19w",
-  //     }),
-  //   });
-
-  //   let comments = await response.json();
-
-  //   this.setState({ comments }, () =>
-  //     console.log("awaited comments", this.state.comments)
-  //   );
-  // };
-
-  // handleOpenModal = imdbID => {
-  //   this.setState({ isModalOpen: true, selectedMovieID: imdbID });
-  //   this.fetchComments(imdbID);
-  // };
-
-  // handleCloseModal = () => {
-  //   this.setState({ isModalOpen: false });
-  // };
-
-  componentDidMount() {
+componentDidMount() {
     this.fetchAlbums();
   }
 
