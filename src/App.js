@@ -7,49 +7,62 @@ import ArtistPage from "./components/ArtistPage";
 import Login from "./components/Login";
 import AlbumPage from "./components/AlbumPage";
 import SideNavBar from "./components/SideNavBar";
-import { Component } from "react";
 import LikedSong from "./components/Liked_Song/LikedSong";
+import { getMusicResults } from "./api/index";
+
 
 class App extends React.Component {
   state = { searchedAlbums: [], searchedLoading: null, searchString: "" };
 
-  showSearchResult = (searchString) => {
+
+  showSearchResult = async (searchString) => {
+
     this.setState({ searchedLoading: true });
+    const musicAlbums = await getMusicResults(searchString)
+    this.setState({searchedAlbums: musicAlbums})
+    this.setState({ searchedLoading: false });
+  }
 
-    fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${searchString}`, {
-      method: "GET",
-      headers: {
-        "x-rapidapi-key": "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
-        "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then((response) => {
-        this.setState({
-          searchedAlbums: response.data,
-        });
-        this.setState({ searchedLoading: false });
-      })
 
-      .catch((error) => {
-        this.setState({ searchedLoading: null });
-        console.log(error);
-      });
-  };
+
+
+  //   fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${searchString}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "x-rapidapi-key": "91cbdcb779mshb25e7872769b4fcp110c07jsnbcf1d17bc30b",
+  //       "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+  //     },
+  //   })
+  //     .then(response => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       }
+  //     })
+  //     .then(response => {
+  //       this.setState({
+  //         searchedAlbums: response.data,
+  //       });
+  //       this.setState({ searchedLoading: false });
+  //     })
+
+  //     .catch(error => {
+  //       this.setState({ searchedLoading: null });
+  //       console.log(error);
+  //     });
+  // };
+
 
   render() {
     return (
       <Router className="App">
+        <Route
+          render={props => (
         <SideNavBar
-          path="/home"
-          searchedAlbums={this.state.searchedAlbums}
-          searchedLoading={this.state.searchedLoading}
-          showSearchResult={this.showSearchResult}
-        />
+              searchedAlbums={this.state.searchedAlbums}
+              searchedLoading={this.state.searchedLoading}
+              showSearchResult={this.showSearchResult}
+            />
+            )} />
         <Route
           path="/album/:id"
           render={(props) => (

@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./CSS/ArtistPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Image, Alert } from "react-bootstrap";
-import Background from "../assets/rock-concert.jpg";
+// import Background from "../assets/rock-concert.jpg";
 import Gallery from "./Gallery";
+import UserBanner from "./UserBanner";
 
 export class ArtistPage extends Component {
   state = {
@@ -121,6 +122,7 @@ export class ArtistPage extends Component {
   render() {
 const { artistInfo } = this.state;
     return (
+      <><UserBanner/>
       <div className="mainframe">
         <div className="main-content">
           {/* <Image src={Background} /> */}
@@ -247,6 +249,7 @@ const { artistInfo } = this.state;
        </>
         </div>
       </div>
+      </>
     );
   }
 }

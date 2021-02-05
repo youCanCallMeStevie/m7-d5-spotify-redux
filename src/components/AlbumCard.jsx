@@ -32,7 +32,7 @@ export class AlbumCard extends Component {
     return (
       //   <div className="row no-gutters d-flex">       <Col className="mb-2">
 
-      <Col className="myCard card trending mb-2" id="sampleCard">
+      <Col className="myCard card trending mb-4" id="sampleCard">
         <div>
           <h6>
             <Link to={`/album/${this.props.id}`}>

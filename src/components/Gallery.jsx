@@ -23,7 +23,7 @@ class Gallery extends React.Component {
             ))
           ) : (
             <>
-              {this.props.Albums.map((album) => (
+              {this.props.Albums?.map((album) => (
                 <AlbumCard
                   album={album}
                   albumTitle={album.title_short}
