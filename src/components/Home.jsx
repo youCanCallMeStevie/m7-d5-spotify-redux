@@ -4,6 +4,14 @@ import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/Home.css";
 import Gallery from "./Gallery";
+import UserBanner from "./UserBanner";
+
+//ICONS
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUserCircle,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
 
 //ACTIONS IMPORTS
 
@@ -63,6 +71,8 @@ class Home extends Component {
 
   render() {
     return (
+      <><UserBanner/>
+    
       <section className="home-body">
         <div className="main-content d-flex flex-column">
           <div className="justify-content-center">
@@ -204,6 +214,7 @@ class Home extends Component {
             )}
         </div>
       </section>
+      </>
     );
   }
 }
