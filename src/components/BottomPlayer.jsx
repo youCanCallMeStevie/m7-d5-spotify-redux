@@ -17,22 +17,31 @@ import "./CSS/BottomPlayer.css";
 import { Row } from "react-bootstrap";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = (state) => state.player;
 export class BottomPlayer extends Component {
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.player !== this.props.player) {
+      this.setState({});
+    }
+  };
   render() {
     const { track } = this.props;
     return (
       <Row
-        className="player d-flex justify-content-between"
+        className="player d-flex justify-content-between px-2"
         style={{ width: "100vw", position: "fixed" }}
       >
         <div className="player-albumart d-flex align-items-center justify-content-start">
           <div className="nowplaying-albumart mx-3">
-            <img src="http://placehold.it/64x64" />
+            <img
+              src={track.cover ? track.cover : "http://placehold.it/64x64"}
+            />
           </div>
           <div className=" d-sm-flex flex-column text-left mr-4">
-            <div className="nowplaying-title">Now playing title</div>
-            <div className="nowplaying-artist">Now playing artist</div>
+            <div className="nowplaying-title">{track && track.title}</div>
+            <div className="nowplaying-artist">
+              {track.artist && track.artist.name}
+            </div>
           </div>
           <div className=" d-lg-flex loved-track mr-3">
             <FontAwesomeIcon className="far fa-heart" icon={faHeart} />

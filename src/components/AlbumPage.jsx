@@ -15,7 +15,8 @@ import { selectedSong } from "../store/player/actions";
 
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
-  handleSelectedSong: (track) => dispatch(selectedSong(track)),
+  handleSelectedSong: (track, cover) =>
+    dispatch(selectedSong({ ...track, cover: cover })),
 });
 export class AlbumPage extends Component {
   state = {
@@ -154,8 +155,11 @@ export class AlbumPage extends Component {
                           <tr
                             key={track.id}
                             className="songRow"
-                            onClick={(track) =>
-                              this.props.handleSelectedSong(track)
+                            onClick={() =>
+                              this.props.handleSelectedSong(
+                                track,
+                                album.cover_small
+                              )
                             }
                           >
                             <td style={{ verticalAlign: "middle" }}>
