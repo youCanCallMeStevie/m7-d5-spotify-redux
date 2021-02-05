@@ -1,10 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/Home.css";
 import Gallery from "./Gallery";
 
-export class Home extends Component {
+//ACTIONS IMPORTS
+
+const maptoStateToProps = (state) => state;
+
+class Home extends Component {
   state = {
     beyonceAlbums: [],
     maxCooperAlbums: [],
@@ -27,10 +32,9 @@ export class Home extends Component {
     this.setState({ selectedAlbumId: id });
   };
 
-
   fetchAlbums = async () => {
     const response = await Promise.all(
-      this.state.urls.map(async url => {
+      this.state.urls.map(async (url) => {
         const response = await fetch(url, {
           method: "GET",
           headers: {
@@ -52,34 +56,6 @@ export class Home extends Component {
     }, 750);
     console.log(response);
   };
-
-  // fetchComments = async id => {
-  //   console.log("fetch", id);
-
-  //   const url = "https://striveschool-api.herokuapp.com/api/comments/";
-
-  //   let response = await fetch(url + id, {
-  //     headers: new Headers({
-  //       Authorization:
-  //         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI2NmUzNTk4MzViMDAwMTc1ODRlZWQiLCJpYXQiOjE2MDU4MjA1NjUsImV4cCI6MTYwNzAzMDE2NX0.mgz_c-3UHAribI3ogIYDAyR7XqpT7ZWCzSPHwrhU19w",
-  //     }),
-  //   });
-
-  //   let comments = await response.json();
-
-  //   this.setState({ comments }, () =>
-  //     console.log("awaited comments", this.state.comments)
-  //   );
-  // };
-
-  // handleOpenModal = imdbID => {
-  //   this.setState({ isModalOpen: true, selectedMovieID: imdbID });
-  //   this.fetchComments(imdbID);
-  // };
-
-  // handleCloseModal = () => {
-  //   this.setState({ isModalOpen: false });
-  // };
 
   componentDidMount() {
     this.fetchAlbums();
@@ -180,7 +156,7 @@ export class Home extends Component {
               An error has occurred, please try again later
             </Alert>
           )}
-{!this.state.error &&
+          {!this.state.error &&
             (this.props.searchedAlbums.length > 0 ||
               this.props.searchedLoading === true) && (
               <Gallery
@@ -193,43 +169,43 @@ export class Home extends Component {
                 // selectedAlbumId={this.handleSelectedAlbum}
               />
             )}
-{!this.state.error &&
+          {!this.state.error &&
             (!this.props.searchedAlbums.length > 0 ||
               this.props.searchedLoading === null) && (
               <>
-            <Gallery
-              title="Beyonce"
-              loading={this.state.loading}
-              Albums={this.state.beyonceAlbums.slice(0, 6)}
-              comments={this.state.comments}
-              // fetchComments={this.fetchComments}
-              // handleOpenModal={this.handleOpenModal}
-              // selectedAlbumId={this.handleSelectedAlbum}
-            />
-            <Gallery
-              title="Max Cooper"
-              loading={this.state.loading}
-              Albums={this.state.maxCooperAlbums.slice(0, 6)}
-              comments={this.state.comments}
-              // fetchComments={this.fetchComments}
-              // handleOpenModal={this.handleOpenModal}
-              // selectedAlbumId={this.handleSelectedAlbum}
-            />
-            <Gallery
-              title="Cake"
-              loading={this.state.loading}
-              Albums={this.state.cakeAlbums.slice(0, 6)}
-              comments={this.state.comments}
-              // fetchComments={this.fetchComments}
-              // handleOpenModal={this.handleOpenModal}
-              // selectedAlbumId={this.handleSelectedAlbum}
-            />
-          </>
-              )}
+                <Gallery
+                  title="Beyonce"
+                  loading={this.state.loading}
+                  Albums={this.state.beyonceAlbums.slice(0, 6)}
+                  comments={this.state.comments}
+                  // fetchComments={this.fetchComments}
+                  // handleOpenModal={this.handleOpenModal}
+                  // selectedAlbumId={this.handleSelectedAlbum}
+                />
+                <Gallery
+                  title="Max Cooper"
+                  loading={this.state.loading}
+                  Albums={this.state.maxCooperAlbums.slice(0, 6)}
+                  comments={this.state.comments}
+                  // fetchComments={this.fetchComments}
+                  // handleOpenModal={this.handleOpenModal}
+                  // selectedAlbumId={this.handleSelectedAlbum}
+                />
+                <Gallery
+                  title="Cake"
+                  loading={this.state.loading}
+                  Albums={this.state.cakeAlbums.slice(0, 6)}
+                  comments={this.state.comments}
+                  // fetchComments={this.fetchComments}
+                  // handleOpenModal={this.handleOpenModal}
+                  // selectedAlbumId={this.handleSelectedAlbum}
+                />
+              </>
+            )}
         </div>
       </section>
     );
   }
 }
 
-export default Home;
+export default connect(maptoStateToProps)(Home);

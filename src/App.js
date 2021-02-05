@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import AlbumPage from "./components/AlbumPage";
 import SideNavBar from "./components/SideNavBar";
 import { Component } from "react";
+import LikedSong from "./components/Liked_Song/LikedSong";
 
 class App extends React.Component {
 
@@ -44,6 +45,11 @@ class App extends React.Component {
   render() {
     return (
       <Router className="App">
+        <SideNavBar
+              searchedAlbums={this.state.searchedAlbums}
+              searchedLoading={this.state.searchedLoading}
+              showSearchResult={this.showSearchResult}
+            />
         <Route
           path="/album/:id"
           render={props => (
@@ -54,7 +60,7 @@ class App extends React.Component {
             />
           )}
         />
-        <Route
+        {/* <Route
           path={["/artist/:id/:name", "/home", "/album/:id"]}
           render={props => (
             <SideNavBar
@@ -64,7 +70,7 @@ class App extends React.Component {
               showSearchResult={this.showSearchResult}
             />
           )}
-        />
+        /> */}
         <Route
           path={["/artist/:id/:name", "/home", "/album/:id"]}
           component={BottomPlayer}
@@ -91,6 +97,7 @@ class App extends React.Component {
           )}
         />
         <Route path="/login" exact render={props => <Login {...props} />} />
+        <Route path="/liked-song/:userId" render={props =><LikedSong {...props} />} />
       </Router>
     );
   }
