@@ -1,5 +1,5 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
-import userReducer from "./jobs/reducer";
+import userReducer from "./user/reducer";
 
 import thunk from "redux-thunk";
 
