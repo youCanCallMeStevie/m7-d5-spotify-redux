@@ -8,12 +8,12 @@ import Login from "./components/Login";
 import AlbumPage from "./components/AlbumPage";
 import SideNavBar from "./components/SideNavBar";
 import { Component } from "react";
+import LikedSong from "./components/Liked_Song/LikedSong";
 
 class App extends React.Component {
-
   state = { searchedAlbums: [], searchedLoading: null, searchString: "" };
 
-  showSearchResult = searchString => {
+  showSearchResult = (searchString) => {
     this.setState({ searchedLoading: true });
 
     fetch(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${searchString}`, {
@@ -23,19 +23,19 @@ class App extends React.Component {
         "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
       },
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           return response.json();
         }
       })
-      .then(response => {
+      .then((response) => {
         this.setState({
           searchedAlbums: response.data,
         });
         this.setState({ searchedLoading: false });
       })
 
-      .catch(error => {
+      .catch((error) => {
         this.setState({ searchedLoading: null });
         console.log(error);
       });
@@ -44,9 +44,15 @@ class App extends React.Component {
   render() {
     return (
       <Router className="App">
+        <SideNavBar
+          path="/home"
+          searchedAlbums={this.state.searchedAlbums}
+          searchedLoading={this.state.searchedLoading}
+          showSearchResult={this.showSearchResult}
+        />
         <Route
           path="/album/:id"
-          render={props => (
+          render={(props) => (
             <AlbumPage
               {...props}
               searchedAlbums={this.state.searchedAlbums}
@@ -54,7 +60,7 @@ class App extends React.Component {
             />
           )}
         />
-        <Route
+        {/* <Route
           path={["/artist/:id/:name", "/home", "/album/:id"]}
           render={props => (
             <SideNavBar
@@ -64,7 +70,7 @@ class App extends React.Component {
               showSearchResult={this.showSearchResult}
             />
           )}
-        />
+        /> */}
         <Route
           path={["/artist/:id/:name", "/home", "/album/:id"]}
           component={BottomPlayer}
@@ -72,7 +78,7 @@ class App extends React.Component {
         <Route
           path="/home"
           exact
-          render={props => (
+          render={(props) => (
             <Home
               {...props}
               searchedAlbums={this.state.searchedAlbums}
@@ -82,7 +88,7 @@ class App extends React.Component {
         />
         <Route
           path="/artist/:id/:name"
-          render={props => (
+          render={(props) => (
             <ArtistPage
               {...props}
               searchedAlbums={this.state.searchedAlbums}
@@ -90,7 +96,11 @@ class App extends React.Component {
             />
           )}
         />
-        <Route path="/login" exact render={props => <Login {...props} />} />
+        <Route path="/login" exact render={(props) => <Login {...props} />} />
+        <Route
+          path="/liked-song/:userId"
+          render={(props) => <LikedSong {...props} />}
+        />
       </Router>
     );
   }
