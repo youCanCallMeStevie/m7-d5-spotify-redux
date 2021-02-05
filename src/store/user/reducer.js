@@ -3,6 +3,7 @@ import {
   REJECTED_SONG,
   SET_USER_DETAILS,
   LOGGED_IN,
+  TOGGLE_LIKED_SONG,
 } from "./constants";
 
 const userReducer = (
@@ -28,6 +29,13 @@ const userReducer = (
       return {
         ...state,
         liked: state.liked.filter((liked) => liked !== payload),
+      };
+    case TOGGLE_LIKED_SONG:
+      return {
+        ...state,
+        liked: state.liked.some((song) => song.id === payload.id)
+          ? state.liked.filter((song) => song.id !== payload.id)
+          : state.liked.concat(payload),
       };
     default:
       return state;
