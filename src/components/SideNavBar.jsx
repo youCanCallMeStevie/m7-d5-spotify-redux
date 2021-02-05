@@ -16,18 +16,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { isLoggedIn } from "../store/user/action";
 import "./CSS/SideNavBar.css";
 
-const mapStateToProps = state => state;
+const mapStateToProps = (state) => state;
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   isLoggedIn: () => dispatch(isLoggedIn(true)),
   handleLogout: () => dispatch(isLoggedIn(false)),
 });
 
-
 export class SideNavBar extends Component {
   state = { searchString: "" };
 
-  searchStringHandler = e => {
+  searchStringHandler = (e) => {
     if (e.keyCode === 13 || e.key === "Enter") {
       this.props.showSearchResult(this.state.searchString);
     } else {
@@ -125,14 +124,14 @@ export class SideNavBar extends Component {
                 <span>SIGN UP</span>
               </a>
             </div>
-            {!this.state.user?.login ? (
+            {!this.props.user.login ? (
               <Link to="/login">
                 <Button className="login-button-index">
                   <span>LOGIN</span>
                 </Button>
               </Link>
             ) : (
-              <Link to="/login">
+              <Link to="/home">
                 <Button
                   className="login-button-index"
                   onClick={() => this.props.handleLogout()}
