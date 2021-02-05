@@ -16,9 +16,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { isLoggedIn } from "../store/user/action";
 import "./CSS/SideNavBar.css";
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = state => state;
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   isLoggedIn: () => dispatch(isLoggedIn()),
   handleLogout: () => dispatch(isLoggedIn()),
 });
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 export class SideNavBar extends Component {
   state = { searchString: "" };
 
-  searchStringHandler = (e) => {
+  searchStringHandler = e => {
     if (e.keyCode === 13 || e.key === "Enter") {
       this.props.showSearchResult(this.state.searchString);
     } else {
@@ -70,14 +70,13 @@ export class SideNavBar extends Component {
           </div>
           <div className="menu d-flex column justify-content-start align-items-center">
             <div className="col">
-              <a href="#">
-                {" "}
+              <Link to="/home">
                 <FontAwesomeIcon
                   className="fas fa-home fa-lg mr-3"
                   icon={faHome}
                 />
                 Home
-              </a>
+              </Link>
             </div>
           </div>
           <div className="menu d-flex column justify-content-start align-items-center">
@@ -119,19 +118,18 @@ export class SideNavBar extends Component {
           <div className="playlists"></div>
 
           <div className="stick-to-bottom-index-page">
-            
             {!this.props.user.login ? (
               <>
-              <div className="login-button-index">
-              <a href="">
-                <span>SIGN UP</span>
-              </a>
-            </div>
-              <Link to="/login">
-                <Button className="login-button-index">
-                  <span>LOGIN</span>
-                </Button>
-              </Link>
+                <div className="login-button-index">
+                  <a href="">
+                    <span>SIGN UP</span>
+                  </a>
+                </div>
+                <Link to="/login">
+                  <Button className="login-button-index">
+                    <span>LOGIN</span>
+                  </Button>
+                </Link>
               </>
             ) : (
               <Link to="/home">
