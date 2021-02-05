@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
- 
   faEllipsisH,
   faHeart,
   faPauseCircle,
@@ -11,17 +9,39 @@ import {
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import "./CSS/AlbumPage.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Image, Alert, Table } from "react-bootstrap";
+import { Image, Alert, Table, Spinner, Row } from "react-bootstrap";
+import { connect } from "react-redux";
+import { selectedSong } from "../store/player/actions";
 
+const mapStateToProps = (state) => state;
+const mapDispatchToProps = (dispatch) => ({
+  handleSelectedSong: (track, cover) =>
+    dispatch(selectedSong({ ...track, cover: cover })),
+});
 export class AlbumPage extends Component {
   state = {
     album: {},
-    tracks: [],
     loading: true,
     error: false,
   };
+  duration = (time) => {
+    const min = time / 60;
+    return min <= 60
+      ? `${Math.floor(min)} MIN`
+      : `${Math.floor(min / 60)} HR ${min} MIN}`;
+  };
 
+  durationTrack = (time) => {
+    let min = Math.floor(time / 60);
+    if (min < 10) {
+      min = `0${min.toString()}`;
+    }
+    let sec = (time % 60).toString();
+    if (sec < 10) {
+      sec = `0${sec.toString()}`;
+    }
+    return min + ":" + sec;
+  };
   fetchAlbum = async () => {
     let albumID = this.props.match.params.id;
     console.log(albumID);
@@ -37,20 +57,14 @@ export class AlbumPage extends Component {
           },
         }
       );
-      let album = await response.json();
-      console.log("album", album);
-
       if (response.ok) {
-        let tracks = album.tracks.data;
-        console.log("tracks", album.tracks);
-
+        let album = await response.json();
         this.setState({
           album: album,
-          tracks: tracks,
+          loading: false,
         });
       } else {
         this.setState({ loading: false, error: true });
-        <Alert variant="danger">Something went wrong!</Alert>;
       }
     } catch (error) {
       console.log(error);
@@ -63,111 +77,135 @@ export class AlbumPage extends Component {
   };
 
   render() {
+    const { album, loading } = this.state;
     return (
       <>
-        <div className="row">
-          <div className="albums-holder col-9" style={{ padding: "0px" }}>
-            <section id="albums-section">
-              <div className="album row">
-                <div className="col-12 col-md-6 col-lg-4">
-                  <Image
-                    className="album-cover img-fluid"
-                    src={this.state.album.cover_big}
-                    alt="album cover"
-                  />
-                </div>
+        {loading ? (
+          <Spinner animation="border" variant="white" size="lg" />
+        ) : (
+          album && (
+            <Row>
+              <div className="albums-holder col-9" style={{ padding: "0px" }}>
+                <section id="albums-section" style={{ overflowY: "auto" }}>
+                  <div className="album row">
+                    <div className="col-12 col-md-6 col-lg-4">
+                      <Image
+                        className="album-cover img-fluid"
+                        src={album.cover_big}
+                        alt="album cover"
+                      />
+                    </div>
+                    <div className="album-details col-12 col-md-6 col-lg-8">
+                      <h4 className="mt-2">album</h4>
+                      <h2 id="albumName">{album.title}</h2>
+                      <div className="mt-4 last-line">
+                        <Link
+                          to={`/artist/${album.artist.id}/${album.artist.name}`}
+                        >
+                          <img
+                            src={album.artist.picture_small}
+                            alt={album.artist.name}
+                            className="group-img"
+                          />
+                          <h6>
+                            <span lassName="group-name">
+                              {` ${album.artist.name}`}
+                            </span>
+                          </h6>
+                        </Link>
+                        <p className="album-length">
+                          {album.release_date.substr(0, 4) + " • "}
+                          {album.nb_tracks + " SONGS"}
+                          {", " + this.duration(album.duration)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="playlist" style={{ width: "100%" }}>
+                    <div className="playlist-btns mt-3 mb-3">
+                      <faPauseCircle
+                        icon={faPauseCircle}
+                        className="fas fa-pause-circle fa-3x"
+                      />
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        className="far fa-heart fa-2x mr-3 ml-3"
+                      />
+                      <FontAwesomeIcon
+                        icon={faEllipsisH}
+                        className="fa fa-ellipsis-h fa-2x"
+                      />
+                    </div>
 
-                <div className="album-details col-12 col-md-6 col-lg-8">
-                  <h4 className="mt-2">album</h4>
-                  <h2 id="albumName">{this.state.album.title}</h2>
-                  <div className="last-line">
-                    {/* <img
-                      src={this.state.album.artist.picture_small}
-                      alt="artist's photo"
-                      className="group-img"
-                    /> */}
-                    <h6>
-                      <a href="" className="group-name">
-                        {/* {this.state.album.artist.name} */}
-                      </a>
-                    </h6>
-                    <p className="album-length">
-                      {this.state.album.release_date} •{" "}
-                      {this.state.album.nb_tracks} tracks,{" "}
-                      {this.state.album.duration} seconds
+                    <Table className="playlist-table table-borderless">
+                      <thead>
+                        <tr>
+                          <th scope="col th-sm">#</th>
+                          <th scope="col th-lg" style={{ paddingLeft: "50px" }}>
+                            Title
+                          </th>
+                          <th scope="col th-sm">
+                            <FontAwesomeIcon icon={faClock} />
+                          </th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        {album.tracks.data.map((track, index) => (
+                          <tr
+                            key={track.id}
+                            className="songRow"
+                            onClick={() =>
+                              this.props.handleSelectedSong(
+                                track,
+                                album.cover_small
+                              )
+                            }
+                          >
+                            <td style={{ verticalAlign: "middle" }}>
+                              <span className="track-num px-2">{index}</span>
+                              <FontAwesomeIcon
+                                icon={faPlay}
+                                size="2x"
+                                className="track-play play-track-btn"
+                              />
+                            </td>
+                            <td>
+                              <ul>
+                                <li className="song">{track.title}</li>
+                                <li>
+                                  <Link
+                                    to={`/artist/${track.artist.id}/${track.artist.name}`}
+                                    className="group"
+                                    style={{ verticalAlign: "middle" }}
+                                  >
+                                    {track.artist.name}
+                                  </Link>
+                                </li>
+                              </ul>
+                            </td>
+                            <td>
+                              {(track.duration / 60)
+                                .toFixed(2)
+                                .toString()
+                                .replace(".", ":")}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                    <p className="playlist-footer">
+                      {album.release_date.substr(0, 4)} {album.label}
                     </p>
                   </div>
-                </div>
-                <div className="playlist">
-                  <div className="playlist-btns mt-3 mb-3">
-                    <FontAwesomeIcon
-                      icon={faPauseCircle}
-                      className="fas fa-pause-circle fa-3x"
-                    />
-                    <FontAwesomeIcon
-                      icon={faHeart}
-                      className="far fa-heart fa-2x mr-3 ml-3"
-                    />
-                    <FontAwesomeIcon
-                      icon={faEllipsisH}
-                      className="fa fa-ellipsis-h fa-2x"
-                    />
-                  </div>
-                </div>
-
-                <Table className=" ">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Title</th>
-                      <th scope="col">
-                      <FontAwesomeIcon
-                      icon={faClock} />
-                      </th>
-                      <th scope="col">
-                      
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {this.state.tracks.map((tracks, index) => (
-                      <tr key={tracks.id}>
-                        <td>{index}</td>
-                        <td>
-                          <>
-                            <strong>{tracks.title}</strong>
-                            <br />
-                            <p>
-                             <Link to={`/artist/${this.props.artistId}/${this.props.artist}`}>
-                             {tracks.artist.name}
-                           </Link>
-                              
-                            </p>
-                          </>
-                        </td>
-                        <td>
-                          {(tracks.duration / 60)
-                            .toFixed(2)
-                            .toString()
-                            .replace(".", ":")}
-                        </td>
-                        <td>
-                        <FontAwesomeIcon
-                      icon={faPlay}
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
+                </section>
               </div>
-            </section>
-          </div>
-        </div>
+            </Row>
+          )
+        )}
       </>
     );
   }
 }
 
-export default AlbumPage;
+export default connect(mapStateToProps, mapDispatchToProps)(AlbumPage);
