@@ -119,12 +119,14 @@ export class SideNavBar extends Component {
           <div className="playlists"></div>
 
           <div className="stick-to-bottom-index-page">
-            <div className="login-button-index">
+            
+            {!this.props.user.login ? (
+              <>
+              <div className="login-button-index">
               <a href="">
                 <span>SIGN UP</span>
               </a>
             </div>
-            {!this.props.user.login ? (
               <Link to="/login">
                 <Button className="login-button-index">
                   <span>LOGIN</span>
