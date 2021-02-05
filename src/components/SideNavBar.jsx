@@ -16,17 +16,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/SideNavBar.css";
 
 export class SideNavBar extends Component {
-
   state = { searchString: "" };
 
-  searchStringHandler = e => {
+  searchStringHandler = (e) => {
     if (e.keyCode === 13 || e.key === "Enter") {
       this.props.showSearchResult(this.state.searchString);
     } else {
       this.setState({ searchString: e.currentTarget.value });
     }
   };
-
 
   render() {
     return (
@@ -48,7 +46,8 @@ export class SideNavBar extends Component {
                   className="mr-sm-2"
                   onKeyDown={this.searchStringHandler}
                   onChange={this.searchStringHandler}
-                  value={this.state.searchString}                />
+                  value={this.state.searchString}
+                />
                 <InputGroup.Append>
                   <Button
                     variant="outline-secondary"
@@ -98,13 +97,13 @@ export class SideNavBar extends Component {
           </div>
           <div className="menu d-flex column justify-content-start align-items-center">
             <div className="col">
-              <a href="#">
+              <Link to="/liked-song/1">
                 <FontAwesomeIcon
                   className="fas fa-heart fa-lg mr-3"
                   icon={faHeart}
                 />
                 Liked Songs
-              </a>
+              </Link>
             </div>
           </div>
 

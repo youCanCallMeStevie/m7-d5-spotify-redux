@@ -1,10 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/Home.css";
 import Gallery from "./Gallery";
 
-export class Home extends Component {
+//ACTIONS IMPORTS
+
+const maptoStateToProps = (state) => state;
+
+class Home extends Component {
   state = {
     beyonceAlbums: [],
     maxCooperAlbums: [],
@@ -27,10 +32,9 @@ export class Home extends Component {
     this.setState({ selectedAlbumId: id });
   };
 
-
   fetchAlbums = async () => {
     const response = await Promise.all(
-      this.state.urls.map(async url => {
+      this.state.urls.map(async (url) => {
         const response = await fetch(url, {
           method: "GET",
           headers: {
@@ -180,7 +184,7 @@ export class Home extends Component {
               An error has occurred, please try again later
             </Alert>
           )}
-{!this.state.error &&
+          {!this.state.error &&
             (this.props.searchedAlbums.length > 0 ||
               this.props.searchedLoading === true) && (
               <Gallery
@@ -193,43 +197,43 @@ export class Home extends Component {
                 // selectedAlbumId={this.handleSelectedAlbum}
               />
             )}
-{!this.state.error &&
+          {!this.state.error &&
             (!this.props.searchedAlbums.length > 0 ||
               this.props.searchedLoading === null) && (
               <>
-            <Gallery
-              title="Beyonce"
-              loading={this.state.loading}
-              Albums={this.state.beyonceAlbums.slice(0, 6)}
-              comments={this.state.comments}
-              // fetchComments={this.fetchComments}
-              // handleOpenModal={this.handleOpenModal}
-              // selectedAlbumId={this.handleSelectedAlbum}
-            />
-            <Gallery
-              title="Max Cooper"
-              loading={this.state.loading}
-              Albums={this.state.maxCooperAlbums.slice(0, 6)}
-              comments={this.state.comments}
-              // fetchComments={this.fetchComments}
-              // handleOpenModal={this.handleOpenModal}
-              // selectedAlbumId={this.handleSelectedAlbum}
-            />
-            <Gallery
-              title="Cake"
-              loading={this.state.loading}
-              Albums={this.state.cakeAlbums.slice(0, 6)}
-              comments={this.state.comments}
-              // fetchComments={this.fetchComments}
-              // handleOpenModal={this.handleOpenModal}
-              // selectedAlbumId={this.handleSelectedAlbum}
-            />
-          </>
-              )}
+                <Gallery
+                  title="Beyonce"
+                  loading={this.state.loading}
+                  Albums={this.state.beyonceAlbums.slice(0, 6)}
+                  comments={this.state.comments}
+                  // fetchComments={this.fetchComments}
+                  // handleOpenModal={this.handleOpenModal}
+                  // selectedAlbumId={this.handleSelectedAlbum}
+                />
+                <Gallery
+                  title="Max Cooper"
+                  loading={this.state.loading}
+                  Albums={this.state.maxCooperAlbums.slice(0, 6)}
+                  comments={this.state.comments}
+                  // fetchComments={this.fetchComments}
+                  // handleOpenModal={this.handleOpenModal}
+                  // selectedAlbumId={this.handleSelectedAlbum}
+                />
+                <Gallery
+                  title="Cake"
+                  loading={this.state.loading}
+                  Albums={this.state.cakeAlbums.slice(0, 6)}
+                  comments={this.state.comments}
+                  // fetchComments={this.fetchComments}
+                  // handleOpenModal={this.handleOpenModal}
+                  // selectedAlbumId={this.handleSelectedAlbum}
+                />
+              </>
+            )}
         </div>
       </section>
     );
   }
 }
 
-export default Home;
+export default connect(maptoStateToProps)(Home);
