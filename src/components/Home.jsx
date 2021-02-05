@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Alert } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/Home.css";
 import Gallery from "./Gallery";
 

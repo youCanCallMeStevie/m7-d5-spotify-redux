@@ -16,8 +16,13 @@ import {
 import "./CSS/BottomPlayer.css";
 import { Row } from "react-bootstrap";
 import { connect } from "react-redux";
+import { toggleLikeSong, likedSong } from "../store/user/action";
 // import ReactPlayer from "react-player";
-const mapStateToProps = (state) => state.player;
+const mapStateToProps = (state) => state;
+const mapDispatchToProps = (dispatch) => ({
+  toggleLikeSong: (song) =>
+    dispatch(toggleLikeSong({ ...song, added: new Date() })),
+});
 export class BottomPlayer extends Component {
   handlePlay = () => {};
   componentDidUpdate = (prevProps) => {
@@ -27,7 +32,11 @@ export class BottomPlayer extends Component {
     }
   };
   render() {
-    const { track } = this.props;
+    const { track } = this.props.player;
+    //TODO not a good approach, should be handle by reducer
+    // const isLiked = this.props.user.liked?.some(
+    //   (song) => song.name === track.name
+    // );
     return (
       <Row
         className="player d-flex justify-content-between px-2"
@@ -36,14 +45,22 @@ export class BottomPlayer extends Component {
         <div className="player-albumart d-flex align-items-center justify-content-start">
           <div className="nowplaying-albumart mx-3">
             <img
-              src={track.cover ? track.cover : "http://placehold.it/64x64"}
+              alt="cover_small"
+              src={
+                track.album
+                  ? track.album.cover_small
+                  : "http://placehold.it/64x64"
+              }
             />
           </div>
           <div className=" d-sm-flex flex-column text-left mr-4">
             <div className="nowplaying-title">{track?.title}</div>
             <div className="nowplaying-artist">{track.artist?.name}</div>
           </div>
-          <div className=" d-lg-flex loved-track mr-3">
+          <div
+            className=" d-lg-flex loved-track mr-3"
+            onClick={() => track?.id && this.props.toggleLikeSong(track)}
+          >
             <FontAwesomeIcon className="far fa-heart" icon={faHeart} />
             <FontAwesomeIcon className="fas fa-heart" icon={faHeart} />
           </div>
@@ -112,4 +129,4 @@ export class BottomPlayer extends Component {
   }
 }
 
-export default connect(mapStateToProps)(BottomPlayer);
+export default connect(mapStateToProps, mapDispatchToProps)(BottomPlayer);
