@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { InputGroup, FormControl, Button, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { connect } from "react-redux";
 import {
   faSearch,
   faHome,
@@ -12,11 +13,18 @@ import {
   faArrowCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { isLoggedIn } from "../store/user/action";
 import "./CSS/SideNavBar.css";
 
-export class SideNavBar extends Component {
+const mapStateToProps = state => state;
 
+const mapDispatchToProps = dispatch => ({
+  isLoggedIn: () => dispatch(isLoggedIn(true)),
+  handleLogout: () => dispatch(isLoggedIn(false)),
+});
+
+
+export class SideNavBar extends Component {
   state = { searchString: "" };
 
   searchStringHandler = e => {
@@ -26,7 +34,6 @@ export class SideNavBar extends Component {
       this.setState({ searchString: e.currentTarget.value });
     }
   };
-
 
   render() {
     return (
@@ -48,7 +55,8 @@ export class SideNavBar extends Component {
                   className="mr-sm-2"
                   onKeyDown={this.searchStringHandler}
                   onChange={this.searchStringHandler}
-                  value={this.state.searchString}                />
+                  value={this.state.searchString}
+                />
                 <InputGroup.Append>
                   <Button
                     variant="outline-secondary"
@@ -113,15 +121,26 @@ export class SideNavBar extends Component {
 
           <div className="stick-to-bottom-index-page">
             <div className="login-button-index">
-              <a href="login.html">
+              <a href="">
                 <span>SIGN UP</span>
               </a>
             </div>
-            <div className="login-button-index">
+            {!this.state.user?.login ? (
               <Link to="/login">
-                <span>LOGIN</span>
+                <Button className="login-button-index">
+                  <span>LOGIN</span>
+                </Button>
               </Link>
-            </div>
+            ) : (
+              <Link to="/login">
+                <Button
+                  className="login-button-index"
+                  onClick={() => this.props.handleLogout()}
+                >
+                  <span>LOGOUT</span>
+                </Button>
+              </Link>
+            )}
             <div className="install-btn">
               <a href="#">
                 <FontAwesomeIcon icon={faArrowCircleDown} />
@@ -135,4 +154,6 @@ export class SideNavBar extends Component {
   }
 }
 
-export default withRouter(SideNavBar);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SideNavBar)
+);
