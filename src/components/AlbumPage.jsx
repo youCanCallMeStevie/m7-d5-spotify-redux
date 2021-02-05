@@ -18,8 +18,8 @@ import {getAlbum} from "../api/index"
 
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
-  handleSelectedSong: (track, cover) =>
-    dispatch(selectedSong({ ...track, cover: cover })),
+  handleSelectedSong: (track, album) =>
+    dispatch(selectedSong({ ...track, album: album })),
 });
 export class AlbumPage extends Component {
   state = {
@@ -168,10 +168,7 @@ export class AlbumPage extends Component {
                             key={track.id}
                             className="songRow"
                             onClick={() =>
-                              this.props.handleSelectedSong(
-                                track,
-                                album.cover_small
-                              )
+                              this.props.handleSelectedSong(track, album)
                             }
                           >
                             <td style={{ verticalAlign: "middle" }}>

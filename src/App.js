@@ -12,15 +12,17 @@ import { getMusicResults } from "./api/index";
 
 
 class App extends React.Component {
-
   state = { searchedAlbums: [], searchedLoading: null, searchString: "" };
 
+
   showSearchResult = async (searchString) => {
+
     this.setState({ searchedLoading: true });
     const musicAlbums = await getMusicResults(searchString)
     this.setState({searchedAlbums: musicAlbums})
     this.setState({ searchedLoading: false });
   }
+
 
 
 
@@ -49,6 +51,7 @@ class App extends React.Component {
   //     });
   // };
 
+
   render() {
     return (
       <Router className="App">
@@ -62,7 +65,7 @@ class App extends React.Component {
             )} />
         <Route
           path="/album/:id"
-          render={props => (
+          render={(props) => (
             <AlbumPage
               {...props}
               searchedAlbums={this.state.searchedAlbums}
@@ -88,7 +91,7 @@ class App extends React.Component {
         <Route
           path="/home"
           exact
-          render={props => (
+          render={(props) => (
             <Home
               {...props}
               searchedAlbums={this.state.searchedAlbums}
@@ -98,7 +101,7 @@ class App extends React.Component {
         />
         <Route
           path="/artist/:id/:name"
-          render={props => (
+          render={(props) => (
             <ArtistPage
               {...props}
               searchedAlbums={this.state.searchedAlbums}
@@ -106,8 +109,11 @@ class App extends React.Component {
             />
           )}
         />
-        <Route path="/login" exact render={props => <Login {...props} />} />
-        <Route path="/liked-song/:userId" render={props =><LikedSong {...props} />} />
+        <Route path="/login" exact render={(props) => <Login {...props} />} />
+        <Route
+          path="/liked-song/:userId"
+          render={(props) => <LikedSong {...props} />}
+        />
       </Router>
     );
   }
