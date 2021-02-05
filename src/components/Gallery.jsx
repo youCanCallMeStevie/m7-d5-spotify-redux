@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Row, Col, Spinner } from "react-bootstrap";
 import AlbumCard from "./AlbumCard";
+
+//ACTIONS IMPORTS
+
+const maptoStateToProps = (state) => state;
 
 class Gallery extends React.Component {
   render() {
@@ -8,7 +13,7 @@ class Gallery extends React.Component {
 
     return (
       <div>
-        <h4 style={{color:"whitesmoke"}}>{this.props.title}</h4>
+        <h4 style={{ color: "whitesmoke" }}>{this.props.title}</h4>
         <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4 no-gutters text-center justify-content-center">
           {this.props.loading ? (
             [0, 1, 2, 3, 4, 5].map((item) => (
@@ -20,9 +25,15 @@ class Gallery extends React.Component {
             <>
               {this.props.Albums.map((album) => (
                 <AlbumCard
-                albumTitle={album.title_short} img={album.album.cover} artist={album.artist.name} trackName={album.title_short} 
-                  id={album.album.id} artistId={album.artist.id}/>
-                  // selectedMovieID={selectedMovieID}
+                  album={album}
+                  albumTitle={album.title_short}
+                  img={album.album.cover}
+                  artist={album.artist.name}
+                  trackName={album.title_short}
+                  id={album.album.id}
+                  artistId={album.artist.id}
+                />
+                // selectedMovieID={selectedMovieID}
               ))}
             </>
           )}
@@ -31,4 +42,4 @@ class Gallery extends React.Component {
     );
   }
 }
-export default Gallery;
+export default connect(maptoStateToProps)(Gallery);

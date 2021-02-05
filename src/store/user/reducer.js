@@ -1,7 +1,12 @@
-import { LIKED_SONG, SET_USER_DETAILS, LOGGED_IN } from "./constants";
+import {
+  LIKED_SONG,
+  REJECTED_SONG,
+  SET_USER_DETAILS,
+  LOGGED_IN,
+} from "./constants";
 
 const userReducer = (
-  state = { liked: {}, details: {}, login: false },
+  state = { liked: [], details: {}, login: false },
   action
 ) => {
   const { type, payload } = action;
@@ -19,6 +24,11 @@ const userReducer = (
       };
     case LOGGED_IN:
       return { ...state, login: !state.login };
+    case REJECTED_SONG:
+      return {
+        ...state,
+        liked: state.liked.filter((liked) => liked !== payload),
+      };
     default:
       return state;
   }
