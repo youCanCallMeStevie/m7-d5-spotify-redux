@@ -20,9 +20,9 @@ import {
 } from "../store/user/action";
 import "./CSS/SideNavBar.css";
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = state => state;
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   isLoggedIn: () => dispatch(isLoggedIn()),
   handleLogout: () => dispatch(isLoggedIn()),
   createPlaylist: (name) => dispatch(createPlaylist(name)),
@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 export class SideNavBar extends Component {
   state = { searchString: "", playlistName: "", inputPlaylist: false };
 
-  searchStringHandler = (e) => {
+  searchStringHandler = e => {
     if (e.keyCode === 13 || e.key === "Enter") {
       this.props.showSearchResult(this.state.searchString);
     } else {
@@ -93,14 +93,13 @@ export class SideNavBar extends Component {
           </div>
           <div className="menu d-flex column justify-content-start align-items-center">
             <div className="col">
-              <a href="#">
-                {" "}
+              <Link to="/home">
                 <FontAwesomeIcon
                   className="fas fa-home fa-lg mr-3"
                   icon={faHome}
                 />
                 Home
-              </a>
+              </Link>
             </div>
           </div>
           <div className="menu d-flex column justify-content-start align-items-center">

@@ -3,8 +3,12 @@ import {
   REJECTED_SONG,
   SET_USER_DETAILS,
   LOGGED_IN,
+<<<<<<< HEAD
   CREATE_PLAYLIST,
   ADD_TO_PLAYLIST
+=======
+  TOGGLE_LIKED_SONG,
+>>>>>>> dev
 } from "./constants";
 
 const userReducer = (
@@ -31,6 +35,7 @@ const userReducer = (
         ...state,
         liked: state.liked.filter((liked) => liked !== payload),
       };
+<<<<<<< HEAD
     case CREATE_PLAYLIST:
       return {
         ...state,
@@ -47,6 +52,15 @@ const userReducer = (
         ...state,
         playlists: playlists
       }
+=======
+    case TOGGLE_LIKED_SONG:
+      return {
+        ...state,
+        liked: state.liked.some((song) => song.id === payload.id)
+          ? state.liked.filter((song) => song.id !== payload.id)
+          : state.liked.concat(payload),
+      };
+>>>>>>> dev
     default:
       return state;
   }

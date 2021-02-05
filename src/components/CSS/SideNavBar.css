@@ -138,7 +138,7 @@ a:hover {
 .login-button-index:hover span {
   color: #000;
 }
-.login-button-index {
+.login-button-index.btn-primary {
   max-width: 300px;
   width: 90%;
   padding: 0.75rem;
@@ -152,6 +152,7 @@ a:hover {
   border-radius: 2rem;
   text-align: center;
   border: 2px solid #b3b3b3;
+  background-color: transparent;
 }
 
 .login-button-index:hover {
