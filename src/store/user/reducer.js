@@ -3,12 +3,9 @@ import {
   REJECTED_SONG,
   SET_USER_DETAILS,
   LOGGED_IN,
-<<<<<<< HEAD
   CREATE_PLAYLIST,
-  ADD_TO_PLAYLIST
-=======
+  ADD_TO_PLAYLIST,
   TOGGLE_LIKED_SONG,
->>>>>>> dev
 } from "./constants";
 
 const userReducer = (

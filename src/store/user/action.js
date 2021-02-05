@@ -4,7 +4,7 @@ import {
   SET_USER_DETAILS,
   LOGGED_IN,
   CREATE_PLAYLIST,
-  ADD_TO_PLAYLIST
+  ADD_TO_PLAYLIST,
   TOGGLE_LIKED_SONG,
 } from "./constants";
 
