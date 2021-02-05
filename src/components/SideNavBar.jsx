@@ -132,6 +132,7 @@ export class SideNavBar extends Component {
                   <span>LOGIN</span>
                 </Button>
               </Link>
+              </>
             ) : (
               <Link to="/home">
                 <Button
