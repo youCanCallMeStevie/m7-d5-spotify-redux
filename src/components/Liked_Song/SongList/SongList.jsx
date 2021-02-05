@@ -3,13 +3,27 @@ import { connect } from "react-redux";
 
 //ICONS
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faCalendarTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faCalendarTimes,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 
 //STYLE
 import "./SongList.scss";
 
+//ACTIONS IMPORTS
+import { removedSong } from "../../../store/user/action";
+
 //MAP TO STATE TO PROPS
 const maptoStateToProps = (state) => state.user;
+
+const mapDispatchtoProps = (dispatch) => ({
+  removeSong: (song) =>
+    dispatch((dispatch, getState) => {
+      dispatch(removedSong(song));
+    }),
+});
 
 class SongList extends PureComponent {
   render() {
@@ -42,11 +56,16 @@ class SongList extends PureComponent {
           {list.map((track) => {
             return (
               <tr>
-                <td>like</td>
+                <td>
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    onClick={() => this.props.removeSong(track)}
+                  />
+                </td>
                 <td>{track.title}</td>
                 <td>{track.artist.name}</td>
                 <td>{track.album.title}</td>
-                <td>{}</td>
+                <td>{track.added.toString().substring(4, 15)}</td>
               </tr>
             );
           })}
@@ -55,4 +74,4 @@ class SongList extends PureComponent {
     );
   }
 }
-export default connect(maptoStateToProps)(SongList);
+export default connect(maptoStateToProps, mapDispatchtoProps)(SongList);
