@@ -15,13 +15,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./CSS/BottomPlayer.css";
 import { Row } from "react-bootstrap";
+import { connect } from "react-redux";
 
+const mapStateToProps = (state) => state;
 export class BottomPlayer extends Component {
   render() {
+    const { track } = this.props;
     return (
       <Row
         className="player d-flex justify-content-between"
-        style={{ width: "101.5vw", position: "fixed" }}
+        style={{ width: "100vw", position: "fixed" }}
       >
         <div className="player-albumart d-flex align-items-center justify-content-start">
           <div className="nowplaying-albumart mx-3">
@@ -100,4 +103,4 @@ export class BottomPlayer extends Component {
   }
 }
 
-export default BottomPlayer;
+export default connect(mapStateToProps)(BottomPlayer);
