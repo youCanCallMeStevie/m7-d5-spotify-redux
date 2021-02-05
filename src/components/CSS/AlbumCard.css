@@ -88,9 +88,6 @@ h6 > a:hover {
   color: limegreen;
 }
 
-.fa-ellipsis-h:hover > #add-to-playlist{
-  display: block;
-}
 
 #add-to-playlist{
   display: none;
