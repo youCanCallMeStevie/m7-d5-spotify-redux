@@ -80,7 +80,7 @@ export class AlbumPage extends Component {
           album && (
             <Row>
               <div className="albums-holder col-9" style={{ padding: "0px" }}>
-                <section id="albums-section">
+                <section id="albums-section" style={{ overflowY: "auto" }}>
                   <div className="album row">
                     <div className="col-12 col-md-6 col-lg-4">
                       <Image
@@ -171,6 +171,10 @@ export class AlbumPage extends Component {
                         ))}
                       </tbody>
                     </Table>
+                    <p className="playlist-footer">
+                      {this.state.album.release_date.substr(0, 4)}{" "}
+                      {this.state.album.label}
+                    </p>
                   </div>
                 </section>
               </div>
