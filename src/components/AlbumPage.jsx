@@ -10,11 +10,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./CSS/AlbumPage.css";
 import { Image, Alert, Table, Spinner, Row } from "react-bootstrap";
+import { connect } from "react-redux";
 
+const mapStateToProps = (state) => state;
+
+const mapDispatchToProps = () => {};
 export class AlbumPage extends Component {
   state = {
     album: {},
-    tracks: [],
     loading: true,
     error: false,
   };
@@ -129,43 +132,49 @@ export class AlbumPage extends Component {
                       />
                     </div>
 
-                    <Table className="playlist-table">
-                      <thead className="table table-borderless">
+                    <Table className="playlist-table table-borderless">
+                      <thead>
                         <tr>
                           <th scope="col th-sm">#</th>
-                          <th scope="col th-sm">Title</th>
+                          <th scope="col th-lg" style={{ paddingLeft: "50px" }}>
+                            Title
+                          </th>
                           <th scope="col th-sm">
                             <FontAwesomeIcon icon={faClock} />
                           </th>
-                          <th scope="col th-sm"></th>
                         </tr>
                       </thead>
 
                       <tbody>
                         {album.tracks.data.map((track, index) => (
                           <tr key={track.id} className="songRow">
-                            <td style={{ verticalAlign: "middle" }}>{index}</td>
+                            <td style={{ verticalAlign: "middle" }}>
+                              <span className="track-num px-2">{index}</span>
+                              <FontAwesomeIcon
+                                icon={faPlay}
+                                size="2x"
+                                className="track-play play-track-btn"
+                              />
+                            </td>
                             <td>
-                              <>
-                                <strong className="song">{track.title}</strong>
-                                <br />
-                                <p>
+                              <ul>
+                                <li className="song">{track.title}</li>
+                                <li>
                                   <Link
                                     to={`/artist/${track.artist.id}/${track.artist.name}`}
+                                    className="group"
+                                    style={{ verticalAlign: "middle" }}
                                   >
                                     {track.artist.name}
                                   </Link>
-                                </p>
-                              </>
+                                </li>
+                              </ul>
                             </td>
                             <td>
                               {(track.duration / 60)
                                 .toFixed(2)
                                 .toString()
                                 .replace(".", ":")}
-                            </td>
-                            <td>
-                              <FontAwesomeIcon icon={faPlay} />
                             </td>
                           </tr>
                         ))}
@@ -186,4 +195,4 @@ export class AlbumPage extends Component {
   }
 }
 
-export default AlbumPage;
+export default connect(mapStateToProps, mapDispatchToProps)(AlbumPage);
