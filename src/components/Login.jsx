@@ -1,5 +1,5 @@
 import Logo from "../assets/logo.png";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,16 +7,27 @@ import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/Login.css";
 import { connect } from "react-redux";
+import { setUserDetails } from "../store/user/action";
+import {useDispatch } from "react-redux";
 
-const mapStateToProps = state => state;
 
-// const mapDispatchToProps = (dispatch) => ({
-//   setUserDetails: (username, password) =>
-//     dispatch({ type: SET_USER_DETAILS, payload: {username, password} }),
-// });
+function Login() {
 
-export class Login extends Component {
-  render() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch()
+
+  const handleLogin = async (e) => {
+    dispatch(setUserDetails(username, password))
+  };
+
+  const updateLogin = async (e) => {
+    const currentId = e.currentTarget.id;
+    if (currentId == "password") setPassword(e.currentTarget.value);
+    else setUsername(e.currentTarget.value);
+  };
+
+
     return (
       <body className="login-body justify-content-center">
         <section>
@@ -53,43 +64,47 @@ export class Login extends Component {
                   type="username"
                   placeholder="Email address or username"
                   id="username"
-                  value
+                  value={username}
+                  onChange={updateLogin}
                 />
                 <Form.Label className="mt-3">Password</Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Password"
                   id="password"
-                  value
+                  value={password}
+                  onChange={updateLogin}
                 />
                 <Form.Text className="text-muted">
                   Don't share your log-in details with others
                 </Form.Text>
               </Form.Group>
-               {/* <Form.Group >
+              {/* <Form.Group >
     <Form.Check className="custom-checkbox" type="checkbox" label="Remember Me" id="rememberUser"/>
   </Form.Group> */}
               <div className="login-btn">
-              <div className="custom-control custom-checkbox">
-                <input
-                  type="checkbox"
-                  className="custom-control-input"
-                  id="customCheck1"
-                />
-                <label className="custom-control-label" for="customCheck1">
-                  Remember Me
-                </label>
-              </div>
-              <Link to="/home">
-                <Button className="login-button login-spotify" type="submit">LOG IN</Button>
-              </Link>
+                <div className="custom-control custom-checkbox">
+                  <input
+                    type="checkbox"
+                    className="custom-control-input"
+                    id="customCheck1"
+                  />
+                  <label className="custom-control-label" for="customCheck1">
+                    Remember Me
+                  </label>
+                </div>
+                <Link to="/home">
+                  <Button
+                    className="login-button login-spotify"
+                    type="submit"
+                    onClick={() => handleLogin()}
+                  >
+                    LOG IN
+                  </Button>
+                </Link>
               </div>
             </Form>
 
-            
-
-              
-           
             <hr />
             <div className="login-footer">
               <span>Don't have an account?</span>
@@ -102,11 +117,5 @@ export class Login extends Component {
       </body>
     );
   }
-}
 
-export default withRouter(
-  connect(
-    mapStateToProps
-    // , mapDispatchToProps
-  )(Login)
-);
+export default withRouter(Login);
