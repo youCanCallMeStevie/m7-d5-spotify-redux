@@ -10,6 +10,8 @@ import {
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 
+//STYLES  
+import "./CSS/UserBanner.scss";
 //ACTIONS IMPORTS
 
 const maptoStateToProps = (state) => state;
@@ -18,7 +20,7 @@ const maptoStateToProps = (state) => state;
 export class UserBanner extends Component {
     render() {
         return (
-            <div className="liked-song">
+            <div className="user-banner-container">
       <header>
         <div className="search">
 

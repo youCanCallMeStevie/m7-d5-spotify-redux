@@ -18,6 +18,8 @@ import { Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { toggleLikeSong, likedSong } from "../store/user/action";
 // import ReactPlayer from "react-player";
+import {withRouter} from "react-router-dom"
+
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
   toggleLikeSong: (song) =>
@@ -37,13 +39,16 @@ export class BottomPlayer extends Component {
     // const isLiked = this.props.user.liked?.some(
     //   (song) => song.name === track.name
     // );
+    let path = this.props.location.pathname;
+
     return (
       <Row
         className="player d-flex justify-content-between px-2"
-        style={{ width: "100vw", position: "fixed" }}
+        style={{ position: "fixed", visibility: path === "/login" ? "hidden" : "" }}
       >
         <div className="player-albumart d-flex align-items-center justify-content-start">
           <div className="nowplaying-albumart mx-3">
+            
             <img
               alt="cover_small"
               src={
@@ -129,4 +134,4 @@ export class BottomPlayer extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BottomPlayer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BottomPlayer));

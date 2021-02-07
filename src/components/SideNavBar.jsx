@@ -147,7 +147,7 @@ export class SideNavBar extends Component {
           />
           <div className="menu d-flex column justify-content-start align-items-center">
             <div className="col">
-              <Link to={`/liked-song/${this.props.user.details.username}`}>
+              <Link to={`/liked-songs/${this.props.user.details.username}`}>
                 <FontAwesomeIcon
                   className="fas fa-heart fa-lg mr-3"
                   icon={faHeart}

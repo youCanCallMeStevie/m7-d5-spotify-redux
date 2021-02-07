@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Spinner } from "react-bootstrap";
 import AlbumCard from "./AlbumCard";
+import {withRouter} from "react-router-dom"
+
 
 //ACTIONS IMPORTS
-
 const maptoStateToProps = (state) => state;
+;
 
 class Gallery extends React.Component {
   render() {
@@ -42,4 +44,4 @@ class Gallery extends React.Component {
     );
   }
 }
-export default connect(maptoStateToProps)(Gallery);
+export default withRouter(connect(maptoStateToProps)(Gallery));

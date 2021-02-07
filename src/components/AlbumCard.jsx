@@ -10,21 +10,26 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CSS/AlbumCard.css";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
-
+import {withRouter} from "react-router-dom"
 import { connect } from "react-redux";
 
 //ACTIONS IMPORTS
 import { likedSong } from "../store/user/action.js";
-
+import { selectedSong } from "../store/player/actions";
 const maptoStateToProps = (state) => state;
 
-const mapDispatchtoProps = (dispatch) => ({
-  likeSong: (song) =>
+const mapDispatchToProps = (dispatch) => ({
+  handleSelectedSong: (track, album) =>
+    dispatch(selectedSong({ ...track, album: album })),
+    likeSong: (song) =>
     dispatch((dispatch, getState) => {
       let songInfo = { ...song, added: new Date() };
       dispatch(likedSong(songInfo));
     }),
-});
+
+  });
+
+
 
 export class AlbumCard extends Component {
   state = {
@@ -74,6 +79,8 @@ export class AlbumCard extends Component {
           <FontAwesomeIcon
             className="play fas fa-play fa-1x mr-3"
             icon={faPlay}
+            // onClick={() =>
+            //   this.props.handleSelectedSong(track, this.props.album)}
           />
           <FontAwesomeIcon
             className="fa fa-ellipsis-h fa-sm"
@@ -94,4 +101,4 @@ export class AlbumCard extends Component {
   }
 }
 
-export default connect(maptoStateToProps, mapDispatchtoProps)(AlbumCard);
+export default withRouter(connect(maptoStateToProps, mapDispatchToProps)(AlbumCard));

@@ -9,7 +9,7 @@ import {
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import "./CSS/AlbumPage.css";
-import { Image, Table, Spinner, Row } from "react-bootstrap";
+import { Image, Table, Spinner, Row, Col } from "react-bootstrap";
 import {withRouter} from "react-router-dom";
 import { connect } from "react-redux";
 import { selectedSong } from "../store/player/actions";
@@ -92,9 +92,15 @@ export class AlbumPage extends Component {
     return (
       <>
       <UserBanner/>
-        {loading ? (
-          <Spinner animation="border" variant="white" size="lg" />
-        ) : (
+
+       {loading ? (
+            [0, 1, 2, 3, 4, 5].map((item) => (
+              <Col key={item}>
+                <Spinner animation="border" variant="light" />
+              </Col>
+            ))
+          ) 
+    : (
           album && (
             <Row>
               <div className="albums-holder col-9" style={{ padding: "0px" }}>
@@ -112,11 +118,11 @@ export class AlbumPage extends Component {
                       <h2 id="albumName">{album?.title}</h2>
                       <div className="mt-4 last-line">
                         <Link
-                          to={`/artist/${album?.artist.id}/${album?.artist.name}`}
+                          to={`/artist/${album.artist.id}/${album.artist.name}`}
                         >
                           <img
-                            src={album?.artist.picture_small}
-                            alt={album?.artist.name}
+                            src={album.artist.picture_small}
+                            alt={album.artist.name}
                             className="group-img"
                           />
                           <h6>
@@ -126,9 +132,9 @@ export class AlbumPage extends Component {
                           </h6>
                         </Link>
                         <p className="album-length">
-                          {album?.release_date.substr(0, 4) + " • "}
-                          {album?.nb_tracks + " SONGS"}
-                          {", " + this.duration(album?.duration)}
+                          {album.release_date.substr(0, 4) + " • "}
+                          {album.nb_tracks + " SONGS"}
+                          {", " + this.duration(album.duration)}
                         </p>
                       </div>
                     </div>
@@ -163,7 +169,7 @@ export class AlbumPage extends Component {
                       </thead>
 
                       <tbody>
-                        {album.tracks.data.map((track, index) => (
+                        {album?.tracks.data.map((track, index) => (
                           <tr
                             key={track.id}
                             className="songRow"
